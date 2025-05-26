@@ -13,7 +13,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public bool Status { get; set; } // Active or not
 
         public Guid RoleId { get; set; }
-        public Role Role { get; set; }
+        public virtual Role Role { get; set; } = null!;
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

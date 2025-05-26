@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Infrastructure.Persistence.Entities
 {
-    public class AuditLog
+    public class AuditLogEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public Guid AccountId { get; set; }
-        public AccountEntity Account { get; set; }
+        public virtual AccountEntity Account { get; set; } = null!;
         public string Action { get; set; } = null!;
         public string Resource { get; set; } = null!;
         public string Payload { get; set; } = null!;

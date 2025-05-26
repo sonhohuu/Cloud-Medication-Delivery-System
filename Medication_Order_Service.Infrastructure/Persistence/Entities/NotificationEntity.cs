@@ -16,7 +16,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public string Content { get; set; } = null!;
         public bool IsRead { get; set; } = false;
         public Guid AssignedToAccountId { get; set; }
-        public AccountEntity AssignedToAccount { get; set; }
+        public virtual AccountEntity AssignedToAccount { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
     }
 }
