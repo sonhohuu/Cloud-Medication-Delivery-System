@@ -14,4 +14,11 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Enums
         Paid,
         Cancelled
     }
+
+    public enum InboundStatus
+    {
+        Pending,
+        Received,
+        Cancelled
+    }
 }

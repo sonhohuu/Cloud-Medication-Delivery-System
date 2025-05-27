@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Medication_Order_Service.Infrastructure.Persistence.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +18,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public string Note { get; set; } = null!;
         public int SupplierId { get; set; }
         public int InboundTypeId { get; set; }
+        public InboundStatus Status { get; set; }
         public Guid CreatedByAccountId { get; set; }
         public DateTime CreatedAt { get; set; }
 
