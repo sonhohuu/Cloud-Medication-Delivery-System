@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Infrastructure.Persistence.Entities
 {
-    public class PatientEntity
+    public class SupplierEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string FullName { get; set; } = null!;
-        public DateTime DateOfBirth { get; set; }
-        public string Gender { get; set; } = null!;
-        public string Phone { get; set; } = null!;
-        public string Email { get; set; } = null!;
+        public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
-
-        public ICollection<MedicationOrderEntity> MedicationOrders { get; set; } = new List<MedicationOrderEntity>();
+        public string PhoneNumber { get; set; } = null!;
+        public string DocumentNumber { get; set; } = null!;
+        public bool Status { get; set; }
+        public ICollection<InboundEntity> Inbounds { get; set; } = new List<InboundEntity>();
     }
 }

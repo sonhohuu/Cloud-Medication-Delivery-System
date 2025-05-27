@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Persistence\Configurations\" />
     <Folder Include="Persistence\Profiles\" />
-    <Folder Include="Persistence\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,6 +23,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Medication_Order_Service.Application\Medication_Order_Service.Application.csproj" />
+    <ProjectReference Include="..\Medication_Order_Service.Domain\Medication_Order_Service.Domain.csproj" />
   </ItemGroup>
 
 </Project>

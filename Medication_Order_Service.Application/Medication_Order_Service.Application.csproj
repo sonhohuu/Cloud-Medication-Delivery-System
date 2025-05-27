@@ -6,4 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Medication_Order_Service.Domain\Medication_Order_Service.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+    <Folder Include="Accounts\" />
+    <Folder Include="MappingProfiles\" />
+    <Folder Include="Events\" />
+    <Folder Include="Behaviours\" />
+    <Folder Include="Inbounds\" />
+  </ItemGroup>
+
 </Project>
