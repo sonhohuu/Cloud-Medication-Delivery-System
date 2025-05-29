@@ -18,7 +18,7 @@ namespace Medication_Order_Service.Domain.MedicationOrders
         private string? _notes;
 
         // Properties
-        public int PatientId { get; private set; }
+        public Patient Patient { get; private set; }
         public Guid DoctorId { get; private set; }
         public MedicationOrderStatus Status => _status;
         public Guid CreatedByAccountId { get; private set; }
@@ -33,7 +33,7 @@ namespace Medication_Order_Service.Domain.MedicationOrders
         private MedicationOrder() { }
 
         public static MedicationOrder Create(
-            int patientId,
+            Patient patient,
             Guid createdByAccountId,
             int waitingNumber,
             MedicationOrderRoom medicationRoom,
@@ -41,13 +41,13 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             string? notes = null)
         {
             // Domain validation
-            patientId.EnsureNonZero(nameof(patientId));
+            patient.IsActive.EnsureTrue(nameof(patient.IsActive));
             createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
             
 
             var order = new MedicationOrder
             {
-                PatientId = patientId,
+                Patient = patient,
                 _status = MedicationOrderStatus.Pending,
                 CreatedByAccountId = createdByAccountId,
                 CreatedAt = DateTime.UtcNow,
@@ -63,15 +63,7 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             return order;
         }
 
-        public void AddMedicationItem(
-            Guid drugId,
-            int quantityOrdered,
-            string dosage,
-            string route,
-            string frequency,
-            string duration,
-            decimal unitPrice,
-            string? instructions = null)
+        public void AddMedicationItem(MedicationOrderItem medicationOrderItem)
         {
             _status.EnsureEnumValueDefined(MedicationOrderStatus.Pending.ToString());
 

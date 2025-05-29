@@ -22,6 +22,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public Guid CreatedByAccountId { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? Notes { get; set; }
+        public string? ReasonCancelled { get; set; }
         public int WaitingNumber { get; set; }
         public decimal? Total { get; set; }
         public MedicationOrderRoom MedicationRoom { get; set; }
