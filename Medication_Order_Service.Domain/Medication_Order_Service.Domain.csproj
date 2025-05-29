@@ -11,4 +11,12 @@
     <Folder Include="Inbounds\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.AspNetCore" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Medication_Order_Service.Common\Medication_Order_Service.Common.csproj" />
+  </ItemGroup>
+
 </Project>

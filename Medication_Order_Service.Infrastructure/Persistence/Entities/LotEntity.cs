@@ -23,7 +23,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
 
         public DrugEntity Drug { get; set; } = null!;
         public StorageLocationEntity StorageLocation { get; set; } = null!;
-        public ICollection<MedicationOrderItemEntity> MedicationOrderItems { get; set; } = new List<MedicationOrderItemEntity>();
         public virtual ICollection<LotTransferEntity> LotTransfers { get; set; } = new List<LotTransferEntity>();
     }
 }

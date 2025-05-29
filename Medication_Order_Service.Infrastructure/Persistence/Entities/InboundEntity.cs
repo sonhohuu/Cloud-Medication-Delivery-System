@@ -1,4 +1,4 @@
-﻿using Medication_Order_Service.Infrastructure.Persistence.Enums;
+﻿using Medication_Order_Service.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

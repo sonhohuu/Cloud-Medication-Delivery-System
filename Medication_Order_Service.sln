@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36119.2 d17.14
+VisualStudioVersion = 17.14.36119.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.Api", "Medication_Order_Service.Api\Medication_Order_Service.Api.csproj", "{C5275F1A-01B5-4344-83EF-146BE9014B7F}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.Domain", "Medication_Order_Service.Domain\Medication_Order_Service.Domain.csproj", "{A38DCC0E-3CA0-44E7-AE7C-6227BAA9ED0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.Infrastructure", "Medication_Order_Service.Infrastructure\Medication_Order_Service.Infrastructure.csproj", "{40A84D0D-E59C-47FD-AE94-23AD2097683A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.Common", "Medication_Order_Service.Common\Medication_Order_Service.Common.csproj", "{E850F7E6-1C21-4370-ABA2-FEBAA02C9B66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{40A84D0D-E59C-47FD-AE94-23AD2097683A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40A84D0D-E59C-47FD-AE94-23AD2097683A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40A84D0D-E59C-47FD-AE94-23AD2097683A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E850F7E6-1C21-4370-ABA2-FEBAA02C9B66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E850F7E6-1C21-4370-ABA2-FEBAA02C9B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E850F7E6-1C21-4370-ABA2-FEBAA02C9B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E850F7E6-1C21-4370-ABA2-FEBAA02C9B66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

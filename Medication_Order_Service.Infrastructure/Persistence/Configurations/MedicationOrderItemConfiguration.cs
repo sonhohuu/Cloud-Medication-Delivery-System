@@ -21,9 +21,9 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Configurations
                    .HasForeignKey(x => x.MedicationOrderId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne<LotEntity>()
+            builder.HasOne<DrugEntity>()
                    .WithMany()
-                   .HasForeignKey(x => x.LotId)
+                   .HasForeignKey(x => x.DrugId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

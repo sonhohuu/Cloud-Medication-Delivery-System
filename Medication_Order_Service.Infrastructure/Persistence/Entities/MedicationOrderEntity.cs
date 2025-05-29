@@ -1,4 +1,4 @@
-﻿using Medication_Order_Service.Infrastructure.Persistence.Enums;
+﻿using Medication_Order_Service.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,10 +18,14 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public PatientEntity Patient { get; set; } = null!;
         public Guid DoctorId { get; set; }
         public AccountEntity Doctor { get; set; } = null!;
-        public MedicationOrderStatus Status { get; set; }
+        public MedicationOrderStatus Status { get; set; } = MedicationOrderStatus.Pending;
         public Guid CreatedByAccountId { get; set; }
         public DateTime CreatedAt { get; set; }
-
+        public string? Notes { get; set; }
+        public int WaitingNumber { get; set; }
+        public decimal? Total { get; set; }
+        public MedicationOrderRoom MedicationRoom { get; set; }
+        public MedicationOrderPriority Priority { get; set; }
         public AccountEntity CreatedByAccount { get; set; } = null!;
         public ICollection<MedicationOrderItemEntity> Items { get; set; } = new List<MedicationOrderItemEntity>();
         public BillEntity? Bill { get; set; }
