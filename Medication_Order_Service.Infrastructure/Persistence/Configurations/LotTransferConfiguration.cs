@@ -17,18 +17,13 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Configurations
             builder.ToTable("LotTransfer");
             builder.HasKey(x => x.Id);
 
-            builder.HasOne<LotEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.LotId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasOne(x => x.FromLocation)
-                   .WithMany()
+                   .WithMany(a => a.LotTransferFroms)
                    .HasForeignKey(x => x.From)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.ToLocation)
-                   .WithMany()
+                   .WithMany(a => a.LotTransferTos)
                    .HasForeignKey(x => x.To)
                    .OnDelete(DeleteBehavior.Restrict);
         }

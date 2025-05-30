@@ -19,21 +19,15 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Configurations
             builder.ToTable("MedicationOrder");
             builder.HasKey(x => x.Id);
 
-            builder.HasOne<PatientEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.PatientId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasOne(m => m.Doctor)
-                   .WithMany()
-                   .HasForeignKey(m => m.DoctorId)
-                   .OnDelete(DeleteBehavior.Restrict);
+                .WithMany(a => a.MedicationOrdersAsDoctor)
+                .HasForeignKey(m => m.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(m => m.CreatedByAccount)
-                   .WithMany(a => a.MedicationOrders)
-                   .HasForeignKey(m => m.CreatedByAccountId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
+                .WithMany(a => a.MedicationOrdersCreated)
+                .HasForeignKey(m => m.CreatedByAccountId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

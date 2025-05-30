@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.SmartEnum" Version="8.2.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.AspNetCore" Version="6.0.0" />
   </ItemGroup>
 

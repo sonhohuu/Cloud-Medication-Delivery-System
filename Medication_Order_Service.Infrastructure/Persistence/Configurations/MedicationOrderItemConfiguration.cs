@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,15 +17,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Configurations
             builder.ToTable("MedicationOrderItem");
             builder.HasKey(x => x.Id);
 
-            builder.HasOne<MedicationOrderItemEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.MedicationOrderId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne<DrugEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.DrugId)
-                   .OnDelete(DeleteBehavior.Restrict);
+            
         }
     }
 }

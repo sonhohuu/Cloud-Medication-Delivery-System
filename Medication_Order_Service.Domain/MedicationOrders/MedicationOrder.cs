@@ -12,23 +12,20 @@ namespace Medication_Order_Service.Domain.MedicationOrders
 {
     public class MedicationOrder : AggregateRoot<MedicationOrder>
     {
-        // Private fields for encapsulation
-        private readonly List<MedicationOrderItem> _items = new();
-        private MedicationOrderStatus _status;
-        private string? _notes;
-
         // Properties
+        public int id { get; private set; }
         public Patient Patient { get; private set; }
         public Guid DoctorId { get; private set; }
-        public MedicationOrderStatus Status => _status;
+        public MedicationOrderStatus Status { get; private set; }
         public Guid CreatedByAccountId { get; private set; }
         public DateTime CreatedAt { get; private set; }
-        public string? Notes => _notes;
+        public string? Notes { get; private set; }
         public int WaitingNumber { get; private set; }
         public MedicationOrderRoom MedicationRoom { get; private set; }
         public MedicationOrderPriority Priority { get; private set; }
 
         // Navigation properties (readonly collections)
+        private readonly List<MedicationOrderItem> _items = new();
         public IReadOnlyCollection<MedicationOrderItem> Items => _items.AsReadOnly();
         private MedicationOrder() { }
 
@@ -41,17 +38,17 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             string? notes = null)
         {
             // Domain validation
-            patient.IsActive.EnsureTrue(nameof(patient.IsActive));
             createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
-            
+            if (patient.IsTreating)
+                throw new ValidationException("Patient is being treating.");
 
             var order = new MedicationOrder
             {
                 Patient = patient,
-                _status = MedicationOrderStatus.Pending,
+                Status = MedicationOrderStatus.Pending,
                 CreatedByAccountId = createdByAccountId,
                 CreatedAt = DateTime.UtcNow,
-                _notes = notes,
+                Notes = notes,
                 WaitingNumber = waitingNumber,
                 MedicationRoom = medicationRoom,
                 Priority = priority
@@ -65,10 +62,10 @@ namespace Medication_Order_Service.Domain.MedicationOrders
 
         public void AddMedicationItem(MedicationOrderItem medicationOrderItem)
         {
-            _status.EnsureEnumValueDefined(MedicationOrderStatus.Pending.ToString());
+            if (Status != MedicationOrderStatus.Pending)
+                throw new ValidationException("Only pending Medication Order can have items added.");
 
-            var item = MedicationOrderItem.Create(
-                drugId, quantityOrdered, dosage, route, frequency, duration, unitPrice, instructions);
+            var item = MedicationOrderItem.Create(medicationOrderItem.Drug, medicationOrderItem.Quantity, medicationOrderItem.UnitPrice, medicationOrderItem.Duration, medicationOrderItem.Frequency, medicationOrderItem.Duration);
 
             _items.Add(item);
         }
@@ -78,32 +75,30 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             if (Status != MedicationOrderStatus.Pending)
                 throw new ValidationException("Only pending orders can be verified.");
 
-            VerifiedByDoctorId = doctorId;
+            DoctorId = doctorId;
             Status = MedicationOrderStatus.Verified;
         }
 
         public void MarkAsDispensed(Guid receptionistId)
         {
             if (Status != MedicationOrderStatus.Verified)
-                throw new DomainException("Only verified orders can be dispensed.");
+                throw new ValidationException("Only verified orders can be dispensed.");
 
-            DispensedByReceptionistId = receptionistId;
             Status = MedicationOrderStatus.Dispensed;
         }
 
         public void MarkAsPaid(Guid patientId)
         {
             if (Status != MedicationOrderStatus.Dispensed)
-                throw new DomainException("Only dispensed orders can be paid.");
+                throw new ValidationException("Only dispensed orders can be paid.");
 
-            PaidByPatientId = patientId;
             Status = MedicationOrderStatus.Paid;
         }
 
         public void Cancel(Guid userId, string role)
         {
             if (Status == MedicationOrderStatus.Dispensed || Status == MedicationOrderStatus.Paid)
-                throw new DomainException("Cannot cancel dispensed or paid orders.");
+                throw new ValidationException("Cannot cancel dispensed or paid orders.");
 
             Status = MedicationOrderStatus.Cancelled;
         }

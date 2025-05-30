@@ -16,20 +16,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Configurations
             builder.ToTable("Inbound");
             builder.HasKey(x => x.Id);
 
-            builder.HasOne<SupplierEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.SupplierId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne<InboundTypeEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.InboundTypeId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne<AccountEntity>()
-                   .WithMany(x => x.Inbounds)
-                   .HasForeignKey(x => x.CreatedByAccountId)
-                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -15,11 +15,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Configurations
         {
             builder.ToTable("Notification");
             builder.HasKey(x => x.Id);
-
-            builder.HasOne<AccountEntity>()
-                   .WithMany(a => a.Notifications)
-                   .HasForeignKey(x => x.AssignedToAccountId)
-                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

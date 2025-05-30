@@ -11,12 +11,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Abstractions\" />
-    <Folder Include="Accounts\" />
     <Folder Include="MappingProfiles\" />
     <Folder Include="Events\" />
     <Folder Include="Behaviours\" />
-    <Folder Include="Inbounds\" />
+    <Folder Include="MedicationOrders\Commands\AddMedicationOrderItem\" />
+    <Folder Include="MedicationOrders\Commands\VerifiedMedicationOrder\" />
+    <Folder Include="MedicationOrders\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
 
 </Project>

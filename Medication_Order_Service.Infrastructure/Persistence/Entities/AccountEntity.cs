@@ -12,14 +12,15 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public string FullName { get; set; } = null!;
         public bool Status { get; set; } // Active or not
 
-        public Guid RoleId { get; set; }
+        public int RoleId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
         public Role Role { get; set; } = null!;
-        public virtual ICollection<AuditLogEntity> AuditLogs { get; set; } = new List<AuditLogEntity>();
-        public virtual ICollection<NotificationEntity> Notifications { get; set; } = new List<NotificationEntity>();
-        public virtual ICollection<MedicationOrderEntity> MedicationOrders { get; set; } = new List<MedicationOrderEntity>();
-        public virtual ICollection<InboundEntity> Inbounds { get; set; } = new List<InboundEntity>();
+        public ICollection<AuditLogEntity> AuditLogs { get; set; } = new List<AuditLogEntity>();
+        public ICollection<NotificationEntity> Notifications { get; set; } = new List<NotificationEntity>();
+        public ICollection<MedicationOrderEntity> MedicationOrdersCreated { get; set; } = new List<MedicationOrderEntity>();
+        public ICollection<MedicationOrderEntity> MedicationOrdersAsDoctor { get; set; } = new List<MedicationOrderEntity>();
+        public ICollection<InboundEntity> Inbounds { get; set; } = new List<InboundEntity>();
     }
 }

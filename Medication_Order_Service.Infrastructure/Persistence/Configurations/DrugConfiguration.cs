@@ -15,16 +15,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Configurations
         {
             builder.ToTable("Drug");
             builder.HasKey(x => x.Id);
-
-            builder.HasOne<DosageFormEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.DosageFormId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne<DrugCategoryEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.DrugCategoryId)
-                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

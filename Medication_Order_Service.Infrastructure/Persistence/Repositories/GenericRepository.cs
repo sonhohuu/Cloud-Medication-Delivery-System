@@ -17,7 +17,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         public GenericRepository()
         {
             this._context = new MedicationOrderServiceDbContext();
-            table = _context.Set<TEntity>();
+            table = _context.Set<TEntity>();        
         }
 
         public GenericRepository(MedicationOrderServiceDbContext context)
@@ -55,6 +55,8 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
             // Đính kèm thực thể và đánh dấu nó để xóa
             _context.Set<TEntity>().Attach(entity);
             _context.Entry(entity).State = EntityState.Deleted;
+           
+            
         }
 
         public IQueryable<TEntity> GetAll()

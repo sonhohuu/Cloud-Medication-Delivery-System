@@ -17,15 +17,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Configurations
             builder.ToTable("Lot");
             builder.HasKey(x => x.Id);
 
-            builder.HasOne<DrugEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.DrugId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne<StorageLocationEntity>()
-                   .WithMany()
-                   .HasForeignKey(x => x.StorageLocationId)
-                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public string TemperatureRange { get; set; } = null!;
         public string HumidityRange { get; set; } = null!;
         public ICollection<LotEntity> Lots { get; set; } = new List<LotEntity>();
-        public virtual ICollection<LotTransferEntity> LotTransfers { get; set; } = new List<LotTransferEntity>();
+        public ICollection<LotTransferEntity> LotTransferFroms { get; set; } = new List<LotTransferEntity>();
+        public ICollection<LotTransferEntity> LotTransferTos { get; set; } = new List<LotTransferEntity>();
     }
 }

@@ -16,10 +16,10 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public int InboundId { get; set; }
         public int Quantity { get; set; }
         public int DrugUnitId { get; set; }
-        public int LotId { get; set; }
+        public int? LotId { get; set; }
 
         public InboundEntity Inbound { get; set; } = null!;
         public DrugUnitEntity DrugUnit { get; set; } = null!;
-        public LotEntity Lot { get; set; } = null!;
+        public LotEntity? Lot { get; set; }
     }
 }

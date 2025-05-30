@@ -17,9 +17,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Configurations
             builder.ToTable("Bill");
             builder.HasKey(x => x.Id);
 
-            builder.HasOne(b => b.MedicationOrder)
-               .WithOne(m => m.Bill)
-               .HasForeignKey<BillEntity>(b => b.MedicationOrderId);
         }
     }
 }

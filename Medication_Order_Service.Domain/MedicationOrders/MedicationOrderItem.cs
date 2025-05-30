@@ -19,13 +19,12 @@ namespace Medication_Order_Service.Domain.MedicationOrders
         public string Duration { get; private set; }
 
         private MedicationOrderItem(
-            Id<MedicationOrderItem>? id,
             Drug drug,
             int quantity,
             decimal unitPrice,
             string dosage,
             string frequency,
-            string duration) : base(id ?? Id<MedicationOrderItem>.New())
+            string duration)
         {
             Drug.EnsureNonNull(nameof(drug));
             Quantity.EnsureGreaterThan(MinItemCount, nameof(quantity));
@@ -35,9 +34,9 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             Duration.EnsureNonNull(nameof(duration));
         }
 
-        public static MedicationOrderItem Create(Id<MedicationOrderItem>? id, Drug drug, int quantity, decimal unitPrice, string dosage, string frequency, string duration)
+        public static MedicationOrderItem Create(Drug drug, int quantity, decimal unitPrice, string dosage, string frequency, string duration)
         {
-            return new MedicationOrderItem(id, drug, quantity, unitPrice, dosage, frequency, duration);
+            return new MedicationOrderItem(drug, quantity, unitPrice, dosage, frequency, duration);
         }
 
     }
