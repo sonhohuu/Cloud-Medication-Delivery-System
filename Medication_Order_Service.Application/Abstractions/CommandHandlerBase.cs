@@ -16,7 +16,7 @@ namespace Medication_Order_Service.Application.Abstractions
      where TResponse : notnull
     {
         //private readonly IDomainEventDispatcher _domainEventDispatcher;
-        private readonly IUnitOfWork _unitOfWork;
+        protected readonly IUnitOfWork _unitOfWork;
 
         protected CommandHandlerBase(
             //IDomainEventDispatcher domainEventDispatcher,

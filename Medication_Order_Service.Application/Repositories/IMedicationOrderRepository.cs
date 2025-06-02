@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Application.Repositories
 {
-    public interface IMedicationOrderRepository : IGenericRepository<MedicationOrder>
+    public interface IMedicationOrderRepository : IRepository<MedicationOrder>
     {
-        
     }
 }

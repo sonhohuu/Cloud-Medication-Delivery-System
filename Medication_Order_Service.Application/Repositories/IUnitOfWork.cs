@@ -8,9 +8,12 @@ namespace Medication_Order_Service.Application.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        Task SaveChangesAsync(CancellationToken cancellationToken);
         Task BeginTransactionAsync();
         Task CommitTransactionAsync();
         Task RollbackTransactionAsync();
+
+        IMedicationOrderRepository MedicationOrderRepository { get; }
+
     }
 }

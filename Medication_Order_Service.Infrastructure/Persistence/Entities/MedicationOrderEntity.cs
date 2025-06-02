@@ -16,9 +16,9 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public int Id { get; set; }
         public int PatientId { get; set; }
         public PatientEntity Patient { get; set; } = null!;
-        public Guid DoctorId { get; set; }
+        public Guid? DoctorId { get; set; }
         public AccountEntity Doctor { get; set; } = null!;
-        public MedicationOrderStatus Status { get; set; } = MedicationOrderStatus.Pending;
+        public MedicationOrderStatus Status { get; set; }
         public Guid CreatedByAccountId { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? Notes { get; set; }

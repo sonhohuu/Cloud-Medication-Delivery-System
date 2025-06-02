@@ -1,6 +1,6 @@
-@Medication_Order_Service.Api_HostAddress = http://localhost:5191
+@Medication_Order_Service.API_HostAddress = http://localhost:5238
 
-GET {{Medication_Order_Service.Api_HostAddress}}/weatherforecast/
+GET {{Medication_Order_Service.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

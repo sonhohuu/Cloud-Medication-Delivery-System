@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36119.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.Api", "Medication_Order_Service.Api\Medication_Order_Service.Api.csproj", "{C5275F1A-01B5-4344-83EF-146BE9014B7F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.Application", "Medication_Order_Service.Application\Medication_Order_Service.Application.csproj", "{A0836AD3-E727-4915-8163-9CA9A61B481D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.Domain", "Medication_Order_Service.Domain\Medication_Order_Service.Domain.csproj", "{A38DCC0E-3CA0-44E7-AE7C-6227BAA9ED0D}"
@@ -13,16 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.Common", "Medication_Order_Service.Common\Medication_Order_Service.Common.csproj", "{E850F7E6-1C21-4370-ABA2-FEBAA02C9B66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medication_Order_Service.API", "Medication_Order_Service.API\Medication_Order_Service.API.csproj", "{A43CC9AE-7A8D-41DD-A224-5A02CD5EA57B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C5275F1A-01B5-4344-83EF-146BE9014B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5275F1A-01B5-4344-83EF-146BE9014B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5275F1A-01B5-4344-83EF-146BE9014B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5275F1A-01B5-4344-83EF-146BE9014B7F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A0836AD3-E727-4915-8163-9CA9A61B481D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A0836AD3-E727-4915-8163-9CA9A61B481D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0836AD3-E727-4915-8163-9CA9A61B481D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{E850F7E6-1C21-4370-ABA2-FEBAA02C9B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E850F7E6-1C21-4370-ABA2-FEBAA02C9B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E850F7E6-1C21-4370-ABA2-FEBAA02C9B66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A43CC9AE-7A8D-41DD-A224-5A02CD5EA57B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A43CC9AE-7A8D-41DD-A224-5A02CD5EA57B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A43CC9AE-7A8D-41DD-A224-5A02CD5EA57B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A43CC9AE-7A8D-41DD-A224-5A02CD5EA57B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

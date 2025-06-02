@@ -1,7 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using MediatR;
 using Medication_Order_Service.Domain.Common.Errors;
-using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;

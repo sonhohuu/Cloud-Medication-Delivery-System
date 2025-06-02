@@ -13,7 +13,7 @@ namespace Medication_Order_Service.Domain.MedicationOrders
     public class MedicationOrder : AggregateRoot<MedicationOrder>
     {
         // Properties
-        public int id { get; private set; }
+        public int PatientId { get; private set; }
         public Patient Patient { get; private set; }
         public Guid DoctorId { get; private set; }
         public MedicationOrderStatus Status { get; private set; }
@@ -27,7 +27,6 @@ namespace Medication_Order_Service.Domain.MedicationOrders
         // Navigation properties (readonly collections)
         private readonly List<MedicationOrderItem> _items = new();
         public IReadOnlyCollection<MedicationOrderItem> Items => _items.AsReadOnly();
-        private MedicationOrder() { }
 
         public static MedicationOrder Create(
             Patient patient,
@@ -60,6 +59,35 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             return order;
         }
 
+        public static MedicationOrder Create(
+            int patientId,
+            Guid createdByAccountId,
+            int waitingNumber,
+            MedicationOrderRoom medicationRoom,
+            MedicationOrderPriority priority,
+            string? notes = null)
+        {
+            // Domain validation
+            createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
+
+            var order = new MedicationOrder
+            {
+                PatientId = patientId,
+                Status = MedicationOrderStatus.Pending,
+                CreatedByAccountId = createdByAccountId,
+                CreatedAt = DateTime.UtcNow,
+                Notes = notes,
+                WaitingNumber = waitingNumber,
+                MedicationRoom = medicationRoom,
+                Priority = priority
+            };
+
+            // Raise domain event
+            //order.AddDomainEvent(new MedicationOrderCreatedEvent(order.Id, order.PatientId, order.WaitingNumber));
+
+            return order;
+        }
+
         public void AddMedicationItem(MedicationOrderItem medicationOrderItem)
         {
             if (Status != MedicationOrderStatus.Pending)
@@ -70,7 +98,7 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             _items.Add(item);
         }
 
-        public void VerifyByDoctor(Guid doctorId)
+        public void VerifyByDoctor(Guid doctorId, string? note)
         {
             if (Status != MedicationOrderStatus.Pending)
                 throw new ValidationException("Only pending orders can be verified.");
