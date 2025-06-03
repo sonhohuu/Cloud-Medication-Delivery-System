@@ -14,6 +14,7 @@ namespace Medication_Order_Service.Application.Repositories
         Task RollbackTransactionAsync();
 
         IMedicationOrderRepository MedicationOrderRepository { get; }
-
+        IPatientRepository PatientRepository { get; }
+        IDrugRepository DrugRepository { get; }
     }
 }

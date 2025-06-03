@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Application.MedicationOrders.Dtos
 {
-    internal class MedicationOrderItemDto
+    public class MedicationOrderItemDto
     {
     }
 }

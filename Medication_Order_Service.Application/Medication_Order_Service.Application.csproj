@@ -14,8 +14,6 @@
     <Folder Include="MappingProfiles\" />
     <Folder Include="Events\" />
     <Folder Include="Behaviours\" />
-    <Folder Include="MedicationOrders\Commands\AddMedicationOrderItem\" />
-    <Folder Include="MedicationOrders\Commands\VerifiedMedicationOrder\" />
     <Folder Include="MedicationOrders\Queries\" />
   </ItemGroup>
 

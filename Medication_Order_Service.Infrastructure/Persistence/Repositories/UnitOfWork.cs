@@ -14,11 +14,15 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         private readonly IMapper _mapper;
 
         public IMedicationOrderRepository MedicationOrderRepository { get; private set; }
+        public IPatientRepository PatientRepository { get; private set; }
+        public IDrugRepository DrugRepository { get; private set; }
         public UnitOfWork(MedicationOrderServiceDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             MedicationOrderRepository ??= new MedicationOrderRepository(_context, mapper);
+            PatientRepository ??= new PatientRepository(_context, mapper);
+            DrugRepository ??= new DrugRepository(_context, mapper);
         }
 
         public async Task BeginTransactionAsync()

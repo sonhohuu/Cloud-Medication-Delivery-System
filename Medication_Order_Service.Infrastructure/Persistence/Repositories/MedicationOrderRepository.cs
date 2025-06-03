@@ -6,50 +6,43 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
 {
-    public class MedicationOrderRepository : IMedicationOrderRepository
+    public class MedicationOrderRepository : RepositoryBase<MedicationOrder, MedicationOrderEntity>, IMedicationOrderRepository
     {
-        private readonly MedicationOrderServiceDbContext _dbContext;
-        private readonly IMapper _mapper;
-        public MedicationOrderRepository(MedicationOrderServiceDbContext context, IMapper mapper)
+        public MedicationOrderRepository(MedicationOrderServiceDbContext context, IMapper mapper) : base(context, mapper)
         {
-            _dbContext = context ?? throw new ArgumentNullException(nameof(context));
-            _mapper = mapper;
         }
 
-        public async Task AddAsync(MedicationOrder entity, CancellationToken cancellationToken)
+        public async Task<MedicationOrder?> GetByIdAsync(int id)
         {
-            var medicationEntity = _mapper.Map<MedicationOrderEntity>(entity);
-            await _dbContext.AddAsync(medicationEntity);
+            var entity = await _context.Set<MedicationOrderEntity>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return entity != null ? _mapper.Map<MedicationOrder>(entity) : null;
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task<IEnumerable<MedicationOrder>> GetByWhereAsync(
+            Expression<Func<MedicationOrderEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            var entities = await _context.Set<MedicationOrderEntity>()
+                .Where(predicate)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return entities.Select(e => _mapper.Map<MedicationOrder>(e));
         }
 
-        public Task<IEnumerable<MedicationOrder>> GetAllAsync()
+
+        public async Task<bool> IsExistsAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<MedicationOrderEntity>().AnyAsync(x => x.Id == id);
         }
 
-        public Task<MedicationOrder?> GetByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> IsExistsAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(MedicationOrder entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

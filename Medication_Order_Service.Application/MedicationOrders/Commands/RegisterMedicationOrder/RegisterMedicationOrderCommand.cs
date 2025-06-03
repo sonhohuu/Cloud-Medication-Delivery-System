@@ -20,13 +20,13 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.Registe
 
     public class PatientRequest
     {
-        public string FullName { get; set; } = null!;
-        public DateTime DateOfBirth { get; set; }
-        public string Gender { get; set; } = null!;
-        public string? Phone { get; set; }
-        public string? Email { get; set; }
-        public string? Address { get; set; }
-        public string? Allergies { get; set; }
-        public decimal Weight { get; set; }
+        public string FullName { get; init; } = default!;
+        public DateTime DateOfBirth { get; init; }
+        public string Gender { get; init; } = default!;
+        public string? Phone { get; init; }
+        public string? Email { get; init; }
+        public string? Address { get; init; }
+        public string? Allergies { get; init; }
+        public decimal Weight { get; init; }
     }
 }

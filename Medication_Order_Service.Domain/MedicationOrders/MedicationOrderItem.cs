@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Domain.MedicationOrders
 {
-    public sealed class MedicationOrderItem : Entity<MedicationOrderItem>
+    public sealed class MedicationOrderItem
     {
         public const int MinItemCount = 1;
-        public Drug Drug { get; }
+        public int DrugId { get; }
         public int Quantity { get; private set; }
         public decimal UnitPrice { get; private set; }
         public string Dosage { get; private set; }
@@ -19,22 +19,28 @@ namespace Medication_Order_Service.Domain.MedicationOrders
         public string Duration { get; private set; }
 
         private MedicationOrderItem(
-            Drug drug,
+            int drugId,
             int quantity,
             decimal unitPrice,
             string dosage,
             string frequency,
             string duration)
         {
-            Drug.EnsureNonNull(nameof(drug));
             Quantity.EnsureGreaterThan(MinItemCount, nameof(quantity));
             UnitPrice.EnsureNonNegative(nameof(unitPrice));
             Dosage.EnsureNonNull(nameof(dosage));
             Frequency.EnsureNonNull(nameof(frequency));
             Duration.EnsureNonNull(nameof(duration));
+
+            DrugId = drugId;
+            Quantity = quantity;
+            UnitPrice = unitPrice;
+            Dosage = dosage;
+            Frequency = frequency;
+            Duration = duration;
         }
 
-        public static MedicationOrderItem Create(Drug drug, int quantity, decimal unitPrice, string dosage, string frequency, string duration)
+        public static MedicationOrderItem Create(int drug, int quantity, decimal unitPrice, string dosage, string frequency, string duration)
         {
             return new MedicationOrderItem(drug, quantity, unitPrice, dosage, frequency, duration);
         }

@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Application.Repositories
 {
-    public interface IMedicationOrderRepository : IAddRepository<MedicationOrder>, 
-        IUpdateRepository<MedicationOrder>, 
-        IReadRepository<MedicationOrder, int>
+    public interface IDrugRepository : IReadRepository<Drug, int>,
+        IAddRepository<Drug>,
+        IUpdateRepository<Drug>,
+        IDeleteRepository<int>
     {
     }
 }
