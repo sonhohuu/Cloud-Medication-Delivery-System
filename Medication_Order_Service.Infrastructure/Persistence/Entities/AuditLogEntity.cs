@@ -11,8 +11,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     public class AuditLogEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Guid AccountId { get; set; }
         public virtual AccountEntity Account { get; set; } = null!;
         public string Action { get; set; } = null!;

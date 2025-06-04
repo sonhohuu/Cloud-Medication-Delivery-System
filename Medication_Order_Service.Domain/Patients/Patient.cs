@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Medication_Order_Service.Domain.MedicationOrders
+namespace Medication_Order_Service.Domain.Patients
 {
-    public class Patient /*: Entity<Patient>*/
+    public class Patient : Entity<Patient>
     {
         public string FullName { get; private set; }
         public DateTime DateOfBirth { get; private set; }
@@ -44,12 +44,33 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             return new Patient(fullName, dateOfBirth, gender, phone, email, address, allergies, weight);
         }
 
-        public static Patient UpdateByDocter(string? allergies)
+        public void Update(string? fullName, DateTime? dateOfBirth, string? gender, string? phone, string? email, string? address, string? allergies, decimal? weight)
         {
-            return new Patient
+            if (fullName != null)
             {
-                Allergies = allergies
-            };
+                fullName.EnsureNonEmpty(nameof(fullName));
+                FullName = fullName;
+            }
+            if (dateOfBirth.HasValue)
+            {
+                dateOfBirth.Value.EnsureNotDefault(nameof(dateOfBirth));
+                DateOfBirth = dateOfBirth.Value;
+            }
+            if (gender != null)
+            {
+                gender.EnsureNonEmpty(nameof(gender));
+                Gender = gender;
+            }
+            if (weight.HasValue)
+            {
+                weight.Value.EnsureNonNegative(nameof(weight));
+                Weight = weight.Value;
+            }
+
+            Phone = phone; // Nullable, no validation needed
+            Email = email; // Nullable, could add email format validation
+            Address = address; // Nullable
+            Allergies = allergies; // Nullable
         }
 
         public void UpdateOnTreating()

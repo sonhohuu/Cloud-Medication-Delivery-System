@@ -2,6 +2,8 @@
 using Medication_Order_Service.Domain.Common;
 using Medication_Order_Service.Domain.Common.Exceptions;
 using Medication_Order_Service.Domain.Common.Extensions;
+using Medication_Order_Service.Domain.MedicationOrders.Entities;
+using Medication_Order_Service.Domain.Patients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +15,7 @@ namespace Medication_Order_Service.Domain.MedicationOrders
     public class MedicationOrder : AggregateRoot<MedicationOrder>
     {
         // Properties
-        public int PatientId { get; private set; }
-        public Patient Patient { get; private set; }
+        public Id<Patient>? PatientId { get; private set; }
         public Guid DoctorId { get; private set; }
         public MedicationOrderStatus Status { get; private set; }
         public Guid CreatedByAccountId { get; private set; }
@@ -28,39 +29,39 @@ namespace Medication_Order_Service.Domain.MedicationOrders
         private readonly List<MedicationOrderItem> _items = new();
         public IReadOnlyCollection<MedicationOrderItem> Items => _items.AsReadOnly();
 
+        //public static MedicationOrder Create(
+        //    Patient patient,
+        //    Guid createdByAccountId,
+        //    int waitingNumber,
+        //    MedicationOrderRoom medicationRoom,
+        //    MedicationOrderPriority priority,
+        //    string? notes = null)
+        //{
+        //    // Domain validation
+        //    createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
+        //    if (patient.IsTreating)
+        //        throw new ValidationException("Patient is being treating.");
+
+        //    var order = new MedicationOrder
+        //    {
+        //        Patient = patient,
+        //        Status = MedicationOrderStatus.Pending,
+        //        CreatedByAccountId = createdByAccountId,
+        //        CreatedAt = DateTime.UtcNow,
+        //        Notes = notes,
+        //        WaitingNumber = waitingNumber,
+        //        MedicationRoom = medicationRoom,
+        //        Priority = priority
+        //    };
+
+        //    // Raise domain event
+        //    //order.AddDomainEvent(new MedicationOrderCreatedEvent(order.Id, order.PatientId, order.WaitingNumber));
+
+        //    return order;
+        //}
+
         public static MedicationOrder Create(
-            Patient patient,
-            Guid createdByAccountId,
-            int waitingNumber,
-            MedicationOrderRoom medicationRoom,
-            MedicationOrderPriority priority,
-            string? notes = null)
-        {
-            // Domain validation
-            createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
-            if (patient.IsTreating)
-                throw new ValidationException("Patient is being treating.");
-
-            var order = new MedicationOrder
-            {
-                Patient = patient,
-                Status = MedicationOrderStatus.Pending,
-                CreatedByAccountId = createdByAccountId,
-                CreatedAt = DateTime.UtcNow,
-                Notes = notes,
-                WaitingNumber = waitingNumber,
-                MedicationRoom = medicationRoom,
-                Priority = priority
-            };
-
-            // Raise domain event
-            //order.AddDomainEvent(new MedicationOrderCreatedEvent(order.Id, order.PatientId, order.WaitingNumber));
-
-            return order;
-        }
-
-        public static MedicationOrder Create(
-            int patientId,
+            Guid patientId,
             Guid createdByAccountId,
             int waitingNumber,
             MedicationOrderRoom medicationRoom,

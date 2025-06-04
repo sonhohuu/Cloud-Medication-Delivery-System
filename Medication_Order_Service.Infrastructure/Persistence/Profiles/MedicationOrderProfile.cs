@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Medication_Order_Service.Domain.Common;
 using Medication_Order_Service.Domain.MedicationOrders;
+using Medication_Order_Service.Domain.Patients;
 using Medication_Order_Service.Infrastructure.Persistence.Entities;
 using System;
 using System.Collections.Generic;

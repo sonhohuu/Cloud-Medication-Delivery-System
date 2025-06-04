@@ -12,9 +12,8 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     public class MedicationOrderEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public int PatientId { get; set; }
+        public Guid Id { get; set; }
+        public Guid PatientId { get; set; }
         public PatientEntity Patient { get; set; } = null!;
         public Guid? DoctorId { get; set; }
         public AccountEntity Doctor { get; set; } = null!;

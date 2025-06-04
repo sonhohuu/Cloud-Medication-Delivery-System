@@ -5,7 +5,7 @@ using Medication_Order_Service.Application.Abstractions;
 using Medication_Order_Service.Application.Repositories;
 using Medication_Order_Service.Domain.Common;
 using Medication_Order_Service.Domain.Common.Errors;
-using Medication_Order_Service.Domain.MedicationOrders;
+using Medication_Order_Service.Domain.MedicationOrders.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

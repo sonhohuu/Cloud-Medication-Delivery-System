@@ -11,10 +11,9 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     public class BillEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public int PatientId { get; set; }
-        public int MedicationOrderId { get; set; }
+        public Guid Id { get; set; }
+        public Guid PatientId { get; set; }
+        public Guid MedicationOrderId { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime IssuedAt { get; set; }
         public MedicationOrderEntity MedicationOrder { get; set; } = null!;

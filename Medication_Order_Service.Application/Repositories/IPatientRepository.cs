@@ -1,4 +1,4 @@
-﻿using Medication_Order_Service.Domain.MedicationOrders;
+﻿using Medication_Order_Service.Domain.Patients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace Medication_Order_Service.Application.Repositories
 {
     public interface IPatientRepository : IUpdateRepository<Patient>, 
-        IReadRepository<Patient, int>, 
-        IDeleteRepository<int>
+        IReadRepository<Patient, Guid>, 
+        IDeleteRepository<Guid>
     {
 
     }

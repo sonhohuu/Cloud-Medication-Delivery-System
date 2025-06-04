@@ -11,10 +11,9 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     public class LotEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public int DrugId { get; set; }
-        public int StorageLocationId { get; set; }
+        public Guid Id { get; set; }
+        public Guid DrugId { get; set; }
+        public Guid StorageLocationId { get; set; }
         public string BatchNumber { get; set; } = null!;
         public DateTime ManufacturingDate { get; set; }
         public DateTime ExpiryDate { get; set; }

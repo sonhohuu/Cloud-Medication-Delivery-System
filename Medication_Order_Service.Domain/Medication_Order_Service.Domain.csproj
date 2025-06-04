@@ -7,8 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Accounts\" />
-    <Folder Include="Inbounds\" />
+    <Folder Include="Accounts\DomainEvents\" />
+    <Folder Include="Accounts\ValueObjects\" />
+    <Folder Include="Drugs\DomainEvents\" />
+    <Folder Include="Drugs\ValueObjects\" />
+    <Folder Include="Inbounds\DomainEvents\" />
+    <Folder Include="Inbounds\ValueObjects\" />
+    <Folder Include="MedicationOrders\DomainEvents\" />
+    <Folder Include="MedicationOrders\ValueObjects\" />
+    <Folder Include="Patients\Entities\" />
+    <Folder Include="Patients\DomainEvents\" />
+    <Folder Include="Patients\ValueObjects\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Medication_Order_Service.Application.Repositories;
-using Medication_Order_Service.Domain.MedicationOrders;
+using Medication_Order_Service.Domain.Patients;
 using Medication_Order_Service.Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,12 +17,12 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         {
         }
 
-        public Task DeleteAsync(int id, CancellationToken cancellationToken)
+        public Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Patient?> GetByIdAsync(int id)
+        public async Task<Patient?> GetByIdAsync(Guid id)
         {
             var entity = await _context.Set<PatientEntity>()
                 .AsNoTracking()
@@ -31,7 +31,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
             return entity != null ? _mapper.Map<Patient>(entity) : null;
         }
 
-        public Task<bool> IsExistsAsync(int id)
+        public Task<bool> IsExistsAsync(Guid id)
         {
             throw new NotImplementedException();
         }

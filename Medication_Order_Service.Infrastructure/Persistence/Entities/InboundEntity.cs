@@ -12,12 +12,11 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     public class InboundEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string InboundCode { get; set; } = null!;
         public string Note { get; set; } = null!;
-        public int SupplierId { get; set; }
-        public int InboundTypeId { get; set; }
+        public Guid SupplierId { get; set; }
+        public Guid InboundTypeId { get; set; }
         public InboundStatus Status { get; set; }
         public Guid CreatedByAccountId { get; set; }
         public DateTime CreatedAt { get; set; }

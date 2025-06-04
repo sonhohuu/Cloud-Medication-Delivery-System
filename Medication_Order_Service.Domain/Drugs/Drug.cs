@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Medication_Order_Service.Domain.MedicationOrders
+namespace Medication_Order_Service.Domain.Drugs
 {
     public sealed class Drug 
     {

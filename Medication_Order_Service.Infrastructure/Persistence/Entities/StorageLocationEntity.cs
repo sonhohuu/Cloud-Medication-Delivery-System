@@ -11,8 +11,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     public class StorageLocationEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string Sheft { get; set; } = null!;
         public string TemperatureRange { get; set; } = null!;

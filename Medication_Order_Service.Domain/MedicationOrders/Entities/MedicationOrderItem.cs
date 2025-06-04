@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Medication_Order_Service.Domain.MedicationOrders
+namespace Medication_Order_Service.Domain.MedicationOrders.Entities
 {
-    public sealed class MedicationOrderItem
+    public sealed class MedicationOrderItem : Entity<MedicationOrderItem>
     {
         public const int MinItemCount = 1;
-        public int DrugId { get; }
+        public Guid DrugId { get; }
         public int Quantity { get; private set; }
         public decimal UnitPrice { get; private set; }
         public string Dosage { get; private set; }
@@ -19,7 +19,7 @@ namespace Medication_Order_Service.Domain.MedicationOrders
         public string Duration { get; private set; }
 
         private MedicationOrderItem(
-            int drugId,
+            Guid drugId,
             int quantity,
             decimal unitPrice,
             string dosage,
@@ -40,7 +40,7 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             Duration = duration;
         }
 
-        public static MedicationOrderItem Create(int drug, int quantity, decimal unitPrice, string dosage, string frequency, string duration)
+        public static MedicationOrderItem Create(Guid drug, int quantity, decimal unitPrice, string dosage, string frequency, string duration)
         {
             return new MedicationOrderItem(drug, quantity, unitPrice, dosage, frequency, duration);
         }

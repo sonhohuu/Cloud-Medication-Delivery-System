@@ -10,7 +10,7 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.AddMedi
 {
     public record class AddMedicationOrderItemCommand : ICommand<Unit>
     {
-        public int MedicationOrderId { get; init; }
+        public Guid MedicationOrderId { get; init; }
 
         public List<MedicationOrderItemRequest> Items { get; init; } = new();
         public string? Note { get; init; }
@@ -18,7 +18,7 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.AddMedi
 
     public record class MedicationOrderItemRequest
     {
-        public int DrugId { get; init; }
+        public Guid DrugId { get; init; }
         public int Quantity { get; init; }
         public string Dosage { get; init; } = default!;
         public decimal UnitPrice { get; init; }

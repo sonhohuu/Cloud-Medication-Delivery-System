@@ -11,8 +11,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     public class NotificationEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Content { get; set; } = null!;
         public bool IsRead { get; set; } = false;
         public Guid AssignedToAccountId { get; set; }

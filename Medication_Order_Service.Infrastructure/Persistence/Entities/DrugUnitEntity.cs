@@ -11,11 +11,10 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     public class DrugUnitEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public int DrugId { get; set; }
+        public Guid Id { get; set; }
+        public Guid DrugId { get; set; }
         public string UnitName { get; set; } = null!;
-        public int? ParentUnitId { get; set; }
+        public Guid? ParentUnitId { get; set; }
         public int ConversionRate { get; set; }
         public bool IsBaseUnit { get; set; }
         public DrugEntity Drug { get; set; } = null!;

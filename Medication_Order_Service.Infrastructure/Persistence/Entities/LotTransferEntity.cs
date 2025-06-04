@@ -11,11 +11,10 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     public class LotTransferEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public int LotId { get; set; }
-        public int From { get; set; }
-        public int To { get; set; }
+        public Guid Id { get; set; }
+        public Guid LotId { get; set; }
+        public Guid From { get; set; }
+        public Guid To { get; set; }
         public string Note { get; set; } = null!;
         public int Quantity { get; set; }
 
