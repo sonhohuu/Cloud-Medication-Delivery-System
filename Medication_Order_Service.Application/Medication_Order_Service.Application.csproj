@@ -15,12 +15,14 @@
     <Folder Include="Events\" />
     <Folder Include="Behaviours\" />
     <Folder Include="MedicationOrders\Queries\" />
+    <Folder Include="Patients\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
   </ItemGroup>
 
 </Project>

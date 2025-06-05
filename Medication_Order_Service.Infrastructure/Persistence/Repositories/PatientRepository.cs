@@ -22,7 +22,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<Patient?> GetByIdAsync(Guid id)
+        public async Task<Patient?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var entity = await _context.Set<PatientEntity>()
                 .AsNoTracking()
@@ -31,7 +31,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
             return entity != null ? _mapper.Map<Patient>(entity) : null;
         }
 
-        public Task<bool> IsExistsAsync(Guid id)
+        public Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

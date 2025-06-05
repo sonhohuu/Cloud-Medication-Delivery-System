@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         protected TEntity MapToEntity(TDomain domain) => _mapper.Map<TEntity>(domain);
         protected TDomain MapToDomain(TEntity entity) => _mapper.Map<TDomain>(entity);
 
-        public async Task<int> CountAsync()
+        public async Task<int> CountAsync(CancellationToken cancellationToken)
         {
             return await _context.Set<TEntity>().CountAsync();
         }
@@ -34,14 +35,20 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         {
             var entity = MapToEntity(domain);
             await _context.Set<TEntity>().AddAsync(entity, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
+            //await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task UpdateAsync(TDomain domain, CancellationToken cancellationToken)
         {
             var entity = MapToEntity(domain);
             _context.Set<TEntity>().Update(entity);
-            await _context.SaveChangesAsync(cancellationToken);
+            //await _context.SaveChangesAsync(cancellationToken);
         }
+
+        protected virtual IQueryable<TEntity> CreateQuery()
+        {
+            return _context.Set<TEntity>();
+        }
+
     }
 }

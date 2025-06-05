@@ -24,11 +24,12 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.Registe
 
         protected override async Task<Result<Id<MedicationOrder>, IDomainError>> ExecuteAsync(RegisterMedicationOrderCommand request, CancellationToken cancellationToken)
         {
-            Patient patient = Patient.Create(request.patient.FullName, request.patient.DateOfBirth, request.patient.Gender, request.patient.Phone, request.patient.Email, request.patient.Address, request.patient.Allergies, request.patient.Weight);
-            MedicationOrder _createdOrder = MedicationOrder.Create(patient, Guid.Parse("3f8e4b2a-9c1d-4e7b-a2f5-6d8c0e3a7b9f"), request.waitingNumber, request.medicationRoom, request.priority, request.note);
-            patient.UpdateOnTreating();
-            await _unitOfWork.MedicationOrderRepository.AddAsync(_createdOrder, cancellationToken);
-            return Result.Success<Id<MedicationOrder>, IDomainError>(_createdOrder.Id);
+            //Patient patient = Patient.Create(request.patient.FullName, request.patient.DateOfBirth, request.patient.Gender, request.patient.Phone, request.patient.Email, request.patient.Address, request.patient.Allergies, request.patient.Weight);
+            //MedicationOrder _createdOrder = MedicationOrder.Create(Guid.Parse("3f8e4b2a-9c1d-4e7b-a2f5-6d8c0e3a7b9f"), Guid.Parse("3f8e4b2a-9c1d-4e7b-a2f5-6d8c0e3a7b9f"), request.waitingNumber, request.medicationRoom, request.priority, request.note);
+            //patient.UpdateOnTreating();
+            //await _unitOfWork.MedicationOrderRepository.AddAsync(_createdOrder, cancellationToken);
+            //return Result.Success<Id<MedicationOrder>, IDomainError>(_createdOrder.Id);
+            return Result.Success<Id<MedicationOrder>, IDomainError>( new Id <MedicationOrder>());
         }
 
         protected override IAggregateRoot? GetAggregateRoot(Result<Id<MedicationOrder>, IDomainError> result)

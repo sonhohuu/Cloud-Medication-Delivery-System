@@ -27,6 +27,11 @@ namespace Medication_Order_Service.Domain.MedicationOrders
 
         // Navigation properties (readonly collections)
         private readonly List<MedicationOrderItem> _items = new();
+
+        public MedicationOrder(Id<MedicationOrder> id) : base(id)
+        {
+        }
+
         public IReadOnlyCollection<MedicationOrderItem> Items => _items.AsReadOnly();
 
         //public static MedicationOrder Create(
@@ -60,34 +65,34 @@ namespace Medication_Order_Service.Domain.MedicationOrders
         //    return order;
         //}
 
-        public static MedicationOrder Create(
-            Guid patientId,
-            Guid createdByAccountId,
-            int waitingNumber,
-            MedicationOrderRoom medicationRoom,
-            MedicationOrderPriority priority,
-            string? notes = null)
-        {
-            // Domain validation
-            createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
+        //public static MedicationOrder Create(
+        //    Guid patientId,
+        //    Guid createdByAccountId,
+        //    int waitingNumber,
+        //    MedicationOrderRoom medicationRoom,
+        //    MedicationOrderPriority priority,
+        //    string? notes = null)
+        //{
+        //    // Domain validation
+        //    createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
 
-            var order = new MedicationOrder
-            {
-                PatientId = patientId,
-                Status = MedicationOrderStatus.Pending,
-                CreatedByAccountId = createdByAccountId,
-                CreatedAt = DateTime.UtcNow,
-                Notes = notes,
-                WaitingNumber = waitingNumber,
-                MedicationRoom = medicationRoom,
-                Priority = priority
-            };
+        //    var order = new MedicationOrder
+        //    {
+        //        PatientId = patientId,
+        //        Status = MedicationOrderStatus.Pending,
+        //        CreatedByAccountId = createdByAccountId,
+        //        CreatedAt = DateTime.UtcNow,
+        //        Notes = notes,
+        //        WaitingNumber = waitingNumber,
+        //        MedicationRoom = medicationRoom,
+        //        Priority = priority
+        //    };
 
-            // Raise domain event
-            //order.AddDomainEvent(new MedicationOrderCreatedEvent(order.Id, order.PatientId, order.WaitingNumber));
+        //    // Raise domain event
+        //    //order.AddDomainEvent(new MedicationOrderCreatedEvent(order.Id, order.PatientId, order.WaitingNumber));
 
-            return order;
-        }
+        //    return order;
+        //}
 
         public void AddMedicationItem(MedicationOrderItem medicationOrderItem)
         {

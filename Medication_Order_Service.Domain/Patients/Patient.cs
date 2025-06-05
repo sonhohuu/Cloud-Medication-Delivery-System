@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Domain.Patients
 {
-    public class Patient : Entity<Patient>
+    public class Patient : AggregateRoot<Patient>
     {
         public string FullName { get; private set; }
         public DateTime DateOfBirth { get; private set; }
@@ -16,12 +16,13 @@ namespace Medication_Order_Service.Domain.Patients
         public string? Phone { get; private set; }
         public string? Email { get; private set; }
         public string? Address { get; private set; }
-        public string? Allergies { get; private set; }
+        public string? Allergies { get; private set; } 
         public decimal Weight { get; private set; }
         public bool IsTreating { get; private set; }
-        private Patient() { } // Private constructor for EF Core or other ORM usage
-
-        private Patient(string fullName, DateTime dateOfBirth, string gender, string? phone, string? email, string? address, string? allergies, decimal weight)
+        public bool IsActive { get; private set; } = true;
+        
+        private Patient(Id<Patient> id, string fullName, DateTime dateOfBirth, string gender, string? phone, string? email, string? address, string? allergies, decimal weight)
+        : base(id) // Now works with updated AggregateRoot<TModel> constructor
         {
             fullName.EnsureNonEmpty(nameof(fullName));
             dateOfBirth.EnsureNotDefault(nameof(dateOfBirth));
@@ -36,12 +37,32 @@ namespace Medication_Order_Service.Domain.Patients
             Address = address;
             Allergies = allergies;
             Weight = weight;
-            IsTreating = false; // Initialize default value
+            IsTreating = false;
+        }
+
+        internal Patient(Id<Patient> id, string fullName, DateTime dateOfBirth, string gender, string? phone, string? email, string? address, string? allergies, decimal weight, bool isTreating, bool isActive)
+        : base(id)
+        {
+            fullName.EnsureNonEmpty(nameof(fullName));
+            dateOfBirth.EnsureNotDefault(nameof(dateOfBirth));
+            gender.EnsureNonEmpty(nameof(gender));
+            weight.EnsureNonNegative(nameof(weight));
+
+            FullName = fullName;
+            DateOfBirth = dateOfBirth;
+            Gender = gender;
+            Phone = phone;
+            Email = email;
+            Address = address;
+            Allergies = allergies;
+            Weight = weight;
+            IsTreating = isTreating;
+            IsActive = isActive;
         }
 
         public static Patient Create(string fullName, DateTime dateOfBirth, string gender, string? phone, string? email, string? address, string? allergies, decimal weight)
         {
-            return new Patient(fullName, dateOfBirth, gender, phone, email, address, allergies, weight);
+            return new Patient(Id<Patient>.New(), fullName, dateOfBirth, gender, phone, email, address, allergies, weight);
         }
 
         public void Update(string? fullName, DateTime? dateOfBirth, string? gender, string? phone, string? email, string? address, string? allergies, decimal? weight)
@@ -81,6 +102,16 @@ namespace Medication_Order_Service.Domain.Patients
         public void UpdateOffTreating()
         {
             IsTreating = false;
+        }
+
+        public void Deactivate()
+        {
+            IsActive = false;
+        }
+
+        public void Activate()
+        {
+            IsActive = true;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Medication_Order_Service.Domain.Common
         // Factory methods
         public static Id<TModel> New() => new(Guid.NewGuid());
         public static Id<TModel> FromId<TNewModel>(Id<TNewModel> id) => new(id.Value);
-        public static Id<TModel> FromGuid(Guid id) => new(id);
+        public static Id<TModel> FromGuid(Guid id) => new Id<TModel>(id);
         public static Id<TModel> FromString(string id) => new(Guid.Parse(id));
 
         // Implicit conversions

@@ -3,6 +3,7 @@ using Medication_Order_Service.Domain.Common;
 using Medication_Order_Service.Domain.MedicationOrders;
 using Medication_Order_Service.Domain.Patients;
 using Medication_Order_Service.Infrastructure.Persistence.Entities;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,8 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Profiles
     {
         public MedicationOrderMappingProfile()
         {
-            // Map Id<T> to int (for any T)
-            CreateMap(typeof(Id<>), typeof(int))
-                .ConvertUsing((src, dest, context) => ((dynamic)src).Value);
+            CreateMap(typeof(Guid), typeof(Id<>))
+                .ConvertUsing(typeof(GeneralFunc.GuidToIdTypeConverter<>));
 
             // Map MedicationOrderEntity to MedicationOrder (Entity -> Domain)
             CreateMap<MedicationOrderEntity, MedicationOrder>()
@@ -55,7 +55,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Profiles
 
             // Map PatientEntity to Patient (Entity -> Domain)
             CreateMap<PatientEntity, Patient>()
-                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth))
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
@@ -66,9 +66,10 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Profiles
                 .ForMember(dest => dest.Weight, opt => opt.MapFrom(src => src.Weight))
                 .ForMember(dest => dest.IsTreating, opt => opt.MapFrom(src => src.IsTreating));
 
+
             // Map Patient to PatientEntity (Domain -> Entity)
             CreateMap<Patient, PatientEntity>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore()) // ID is typically set by DB
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth))
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))

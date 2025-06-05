@@ -10,8 +10,8 @@ namespace Medication_Order_Service.Application.Repositories
 {
     public interface IReadRepository<TDomain, T>
     {
-        Task<TDomain?> GetByIdAsync(T id);
-        Task<bool> IsExistsAsync(T id);
-        Task<int> CountAsync();
+        Task<TDomain?> GetByIdAsync(T id, CancellationToken cancellationToken);
+        Task<bool> IsExistsAsync(T id, CancellationToken cancellationToken);
+        Task<int> CountAsync(CancellationToken cancellationToken);
     }
 }

@@ -18,7 +18,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         {
         }
 
-        public async Task<MedicationOrder?> GetByIdAsync(Guid id)
+        public async Task<MedicationOrder?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var entity = await _context.Set<MedicationOrderEntity>()
                 .AsNoTracking()
@@ -39,7 +39,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         }
 
 
-        public async Task<bool> IsExistsAsync(Guid id)
+        public async Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _context.Set<MedicationOrderEntity>().AnyAsync(x => x.Id == id);
         }

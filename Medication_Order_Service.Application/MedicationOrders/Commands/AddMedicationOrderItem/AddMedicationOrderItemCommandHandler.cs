@@ -27,14 +27,14 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.AddMedi
         protected override async Task<Result<Unit, IDomainError>> ExecuteAsync(
             AddMedicationOrderItemCommand request, CancellationToken cancellationToken)
         {
-            var medicationOrder = await _unitOfWork.MedicationOrderRepository.GetByIdAsync(request.MedicationOrderId);
+            var medicationOrder = await _unitOfWork.MedicationOrderRepository.GetByIdAsync(request.MedicationOrderId, cancellationToken);
             if (medicationOrder == null)
                 return Result.Failure<Unit, IDomainError>(DomainError.NotFound());
 
             // Loop through each item in the command and add it
             foreach (var itemReq in request.Items)
             {
-                var drugActive = await _unitOfWork.DrugRepository.GetByIdAsync(itemReq.DrugId);
+                var drugActive = await _unitOfWork.DrugRepository.GetByIdAsync(itemReq.DrugId, cancellationToken);
                 if (drugActive.IsActive)
                 {
                     // Kiểm tra xem thuốc có đang hoạt động không

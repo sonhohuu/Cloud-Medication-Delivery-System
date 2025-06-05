@@ -1,4 +1,5 @@
 ﻿using Medication_Order_Service.Infrastructure.Persistence;
+using Medication_Order_Service.Infrastructure.Persistence.Profiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ namespace Medication_Order_Service.Infrastructure
         {
             // Register AutoMapper
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(typeof(MedicationOrderMappingProfile).Assembly);
 
             // Register DbContext with a connection string
             services.AddDbContext<MedicationOrderServiceDbContext>(options =>
