@@ -45,10 +45,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
             //await _context.SaveChangesAsync(cancellationToken);
         }
 
-        protected virtual IQueryable<TEntity> CreateQuery()
-        {
-            return _context.Set<TEntity>();
-        }
 
     }
 }
