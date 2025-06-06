@@ -9,8 +9,7 @@ namespace Medication_Order_Service.Application.Repositories
 {
     public interface IDrugRepository : IReadRepository<Drug, Guid>,
         IAddRepository<Drug>,
-        IUpdateRepository<Drug>,
-        IDeleteRepository<Guid>
+        IUpdateRepository<Drug>
     {
     }
 }

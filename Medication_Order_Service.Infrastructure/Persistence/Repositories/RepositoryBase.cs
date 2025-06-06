@@ -35,14 +35,12 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         {
             var entity = MapToEntity(domain);
             await _context.Set<TEntity>().AddAsync(entity, cancellationToken);
-            //await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task UpdateAsync(TDomain domain, CancellationToken cancellationToken)
         {
             var entity = MapToEntity(domain);
             _context.Set<TEntity>().Update(entity);
-            //await _context.SaveChangesAsync(cancellationToken);
         }
 
 

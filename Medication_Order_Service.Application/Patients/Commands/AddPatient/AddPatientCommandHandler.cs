@@ -17,12 +17,10 @@ namespace Medication_Order_Service.Application.Patients.Commands.AddPatient
 {
     public class AddPatientCommandHandler : CommandHandlerBase<AddPatientCommand, Unit>
     {
-        private readonly IMapper _mapper;
 
-        public AddPatientCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public AddPatientCommandHandler(IUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         protected override async Task<Result<Unit, IDomainError>> ExecuteAsync(

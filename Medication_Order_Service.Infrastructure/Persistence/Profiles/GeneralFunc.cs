@@ -14,6 +14,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Profiles
         {
             public Id<T> Convert(Guid source, Id<T> destination, ResolutionContext context)
             {
+                Console.WriteLine("Guid -> Id");
                 return new Id<T>(source);
             }
         }

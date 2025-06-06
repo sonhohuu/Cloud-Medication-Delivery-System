@@ -8,22 +8,21 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Domain.Drugs.Entities
 {
-    public class DrugCategory : Entity<DrugCategory>
+    public class DosageForm :Entity<DosageForm>
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
-        private DrugCategory(Id<DrugCategory> id) : base(id)
+        private DosageForm(Id<DosageForm> id) : base(id)
         {
         }
-        public static DrugCategory Create(string name, string description)
+        public static DosageForm Create(string name, string description)
         {
-            return new DrugCategory(Id<DrugCategory>.New())
+            return new DosageForm(Id<DosageForm>.New())
             {
                 Name = name,
                 Description = description
             };
         }
-
         public void Update(string? name, string? description)
         {
             if (name != null)
@@ -37,5 +36,6 @@ namespace Medication_Order_Service.Domain.Drugs.Entities
                 Description = description;
             }
         }
+
     }
 }

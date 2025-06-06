@@ -16,12 +16,9 @@ namespace Medication_Order_Service.Application.Patients.Commands.DeactivatePatie
 {
     public class DeactivatePatientCommandHandler : CommandHandlerBase<DeactivatePatientCommand, Unit>
     {
-        private readonly IMapper _mapper;
-
-        public DeactivatePatientCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public DeactivatePatientCommandHandler(IUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         protected async override Task<Result<Unit, IDomainError>> ExecuteAsync(DeactivatePatientCommand request, CancellationToken cancellationToken)

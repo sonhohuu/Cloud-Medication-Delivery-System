@@ -16,6 +16,8 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         public IMedicationOrderRepository MedicationOrderRepository { get; private set; }
         public IPatientRepository PatientRepository { get; private set; }
         public IDrugRepository DrugRepository { get; private set; }
+        public IDrugCategoryRepository DrugCategoryRepository { get; private set; }
+        public IDrugDosageFormRepository DrugDosageFormRepository { get; private set; }
         public UnitOfWork(MedicationOrderServiceDbContext context, IMapper mapper)
         {
             _context = context;
@@ -23,6 +25,8 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
             MedicationOrderRepository ??= new MedicationOrderRepository(_context, mapper);
             PatientRepository ??= new PatientRepository(_context, mapper);
             DrugRepository ??= new DrugRepository(_context, mapper);
+            DrugCategoryRepository ??= new DrugCategoryRepository(_context, mapper);
+            DrugDosageFormRepository ??= new DrugDosageFormRepository(_context, mapper);
         }
 
         public async Task BeginTransactionAsync()

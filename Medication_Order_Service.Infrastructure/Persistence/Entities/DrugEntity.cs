@@ -14,6 +14,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
+        public decimal Price { get; set; }
         public string SKU { get; set; } = null!;
         public Guid DosageFormId { get; set; }
         public Guid DrugCategoryId { get; set; }

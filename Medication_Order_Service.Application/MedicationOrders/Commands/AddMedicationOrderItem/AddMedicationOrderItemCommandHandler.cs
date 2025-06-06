@@ -52,7 +52,7 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.AddMedi
                 medicationOrder?.AddMedicationItem(item);
             }
 
-            var doctorId = Guid.Parse("3f8e4b2a-9c1d-4e7b-a2f5-6d8c0e3a7b9f");
+            var doctorId = Guid.Parse("550E8400-E29B-41D4-A716-446655440000");
             medicationOrder?.VerifyByDoctor(doctorId, request?.Note);
 
             await _unitOfWork.MedicationOrderRepository.UpdateAsync(medicationOrder, cancellationToken);

@@ -23,7 +23,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public string? Notes { get; set; }
         public string? ReasonCancelled { get; set; }
         public int WaitingNumber { get; set; }
-        public decimal? Total { get; set; }
         public MedicationOrderRoom MedicationRoom { get; set; }
         public MedicationOrderPriority Priority { get; set; }
         public AccountEntity CreatedByAccount { get; set; } = null!;

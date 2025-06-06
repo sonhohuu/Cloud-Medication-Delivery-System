@@ -38,11 +38,5 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
             return entities.Select(e => _mapper.Map<MedicationOrder>(e));
         }
 
-
-        public async Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
-        {
-            return await _context.Set<MedicationOrderEntity>().AnyAsync(x => x.Id == id);
-        }
-
     }
 }

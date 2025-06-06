@@ -1,5 +1,6 @@
 ﻿using Medication_Order_Service.Domain.Common;
 using Medication_Order_Service.Domain.Common.Extensions;
+using Medication_Order_Service.Domain.MedicationOrders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,50 +20,34 @@ namespace Medication_Order_Service.Domain.Patients
         public string? Allergies { get; private set; } 
         public decimal Weight { get; private set; }
         public bool IsTreating { get; private set; }
-        public bool IsActive { get; private set; } = true;
-        
-        private Patient(Id<Patient> id, string fullName, DateTime dateOfBirth, string gender, string? phone, string? email, string? address, string? allergies, decimal weight)
-        : base(id) // Now works with updated AggregateRoot<TModel> constructor
+        public bool IsActive { get; private set; }
+
+        private Patient(Id<Patient> id) : base(id)
         {
-            fullName.EnsureNonEmpty(nameof(fullName));
-            dateOfBirth.EnsureNotDefault(nameof(dateOfBirth));
-            gender.EnsureNonEmpty(nameof(gender));
-            weight.EnsureNonNegative(nameof(weight));
-
-            FullName = fullName;
-            DateOfBirth = dateOfBirth;
-            Gender = gender;
-            Phone = phone;
-            Email = email;
-            Address = address;
-            Allergies = allergies;
-            Weight = weight;
-            IsTreating = false;
-        }
-
-        internal Patient(Id<Patient> id, string fullName, DateTime dateOfBirth, string gender, string? phone, string? email, string? address, string? allergies, decimal weight, bool isTreating, bool isActive)
-        : base(id)
-        {
-            fullName.EnsureNonEmpty(nameof(fullName));
-            dateOfBirth.EnsureNotDefault(nameof(dateOfBirth));
-            gender.EnsureNonEmpty(nameof(gender));
-            weight.EnsureNonNegative(nameof(weight));
-
-            FullName = fullName;
-            DateOfBirth = dateOfBirth;
-            Gender = gender;
-            Phone = phone;
-            Email = email;
-            Address = address;
-            Allergies = allergies;
-            Weight = weight;
-            IsTreating = isTreating;
-            IsActive = isActive;
         }
 
         public static Patient Create(string fullName, DateTime dateOfBirth, string gender, string? phone, string? email, string? address, string? allergies, decimal weight)
         {
-            return new Patient(Id<Patient>.New(), fullName, dateOfBirth, gender, phone, email, address, allergies, weight);
+            fullName.EnsureNonEmpty(nameof(fullName));
+            dateOfBirth.EnsureNotDefault(nameof(dateOfBirth));
+            gender.EnsureNonEmpty(nameof(gender));
+            weight.EnsureNonNegative(nameof(weight));
+
+            var patient = new Patient(Id<Patient>.New())
+            {
+                FullName = fullName,
+                DateOfBirth = dateOfBirth,
+                Gender = gender,
+                Phone = phone,
+                Email = email,
+                Address = address,
+                Allergies = allergies,
+                Weight = weight
+            };
+
+            //Raise Domain Events Here
+
+            return patient;
         }
 
         public void Update(string? fullName, DateTime? dateOfBirth, string? gender, string? phone, string? email, string? address, string? allergies, decimal? weight)

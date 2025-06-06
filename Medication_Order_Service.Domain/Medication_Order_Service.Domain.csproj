@@ -13,6 +13,8 @@
     <Folder Include="Drugs\ValueObjects\" />
     <Folder Include="Inbounds\DomainEvents\" />
     <Folder Include="Inbounds\ValueObjects\" />
+    <Folder Include="Lots\DomainEvents\" />
+    <Folder Include="Lots\ValueObjects\" />
     <Folder Include="MedicationOrders\DomainEvents\" />
     <Folder Include="MedicationOrders\ValueObjects\" />
     <Folder Include="Patients\Entities\" />

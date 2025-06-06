@@ -12,7 +12,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
     {
         [Key]
         public Guid Id { get; set; }
-        public Guid PatientId { get; set; }
         public Guid MedicationOrderId { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime IssuedAt { get; set; }

@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Drugs\Dtos\" />
+    <Folder Include="Drugs\Queries\" />
     <Folder Include="MappingProfiles\" />
     <Folder Include="Events\" />
     <Folder Include="Behaviours\" />

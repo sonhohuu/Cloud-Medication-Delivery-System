@@ -18,7 +18,7 @@ namespace Medication_Order_Service.Infrastructure
         {
             // Register AutoMapper
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddAutoMapper(typeof(MedicationOrderMappingProfile).Assembly);
+            services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
             // Register DbContext with a connection string
             services.AddDbContext<MedicationOrderServiceDbContext>(options =>

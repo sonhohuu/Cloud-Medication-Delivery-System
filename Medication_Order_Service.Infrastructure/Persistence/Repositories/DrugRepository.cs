@@ -17,11 +17,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         {
         }
 
-        public Task DeleteAsync(Guid id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Drug?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var entity = await _context.Set<DrugEntity>()
@@ -29,11 +24,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return entity != null ? _mapper.Map<Drug>(entity) : null;
-        }
-
-        public Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -31,9 +31,5 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
             return entity != null ? _mapper.Map<Patient>(entity) : null;
         }
 
-        public Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

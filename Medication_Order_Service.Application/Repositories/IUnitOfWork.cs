@@ -16,5 +16,7 @@ namespace Medication_Order_Service.Application.Repositories
         IMedicationOrderRepository MedicationOrderRepository { get; }
         IPatientRepository PatientRepository { get; }
         IDrugRepository DrugRepository { get; }
+        IDrugCategoryRepository DrugCategoryRepository { get; }
+        IDrugDosageFormRepository DrugDosageFormRepository { get; }
     }
 }

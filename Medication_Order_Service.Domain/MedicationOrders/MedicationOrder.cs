@@ -7,6 +7,8 @@ using Medication_Order_Service.Domain.Patients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,75 +26,78 @@ namespace Medication_Order_Service.Domain.MedicationOrders
         public int WaitingNumber { get; private set; }
         public MedicationOrderRoom MedicationRoom { get; private set; }
         public MedicationOrderPriority Priority { get; private set; }
+        public string? ReasonCancelled { get; set; }
+        public Bill? Bill { get; private set; }
+        public IReadOnlyCollection<MedicationOrderItem> Items => _items.AsReadOnly();
 
         // Navigation properties (readonly collections)
         private readonly List<MedicationOrderItem> _items = new();
 
-        public MedicationOrder(Id<MedicationOrder> id) : base(id)
+        private MedicationOrder(Id<MedicationOrder> id) : base(id)
         {
         }
 
-        public IReadOnlyCollection<MedicationOrderItem> Items => _items.AsReadOnly();
+        public static MedicationOrder Create(
+            Id<Patient> patientId,
+            Guid createdByAccountId,
+            int waitingNumber,
+            MedicationOrderRoom medicationRoom,
+            MedicationOrderPriority priority,
+            string? notes = null)
+        {
+            // Domain validation
+            createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
+            waitingNumber.EnsureGreaterThan(0, nameof(waitingNumber));
 
-        //public static MedicationOrder Create(
-        //    Patient patient,
-        //    Guid createdByAccountId,
-        //    int waitingNumber,
-        //    MedicationOrderRoom medicationRoom,
-        //    MedicationOrderPriority priority,
-        //    string? notes = null)
-        //{
-        //    // Domain validation
-        //    createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
-        //    if (patient.IsTreating)
-        //        throw new ValidationException("Patient is being treating.");
+            var order = new MedicationOrder(Id<MedicationOrder>.New())
+            {
+                PatientId = patientId,
+                Status = MedicationOrderStatus.Pending,
+                CreatedByAccountId = createdByAccountId,
+                CreatedAt = DateTime.UtcNow,
+                Notes = notes,
+                WaitingNumber = waitingNumber,
+                MedicationRoom = medicationRoom,
+                Priority = priority
+            };
 
-        //    var order = new MedicationOrder
-        //    {
-        //        Patient = patient,
-        //        Status = MedicationOrderStatus.Pending,
-        //        CreatedByAccountId = createdByAccountId,
-        //        CreatedAt = DateTime.UtcNow,
-        //        Notes = notes,
-        //        WaitingNumber = waitingNumber,
-        //        MedicationRoom = medicationRoom,
-        //        Priority = priority
-        //    };
+            // Raise domain event
+            //order.AddDomainEvent(new MedicationOrderCreatedEvent(order.Id, order.PatientId, order.WaitingNumber));
 
-        //    // Raise domain event
-        //    //order.AddDomainEvent(new MedicationOrderCreatedEvent(order.Id, order.PatientId, order.WaitingNumber));
+            return order;
+        }
 
-        //    return order;
-        //}
+        public void Update(
+            Id<Patient>? patientId,
+            int? waitingNumber,
+            MedicationOrderRoom? medicationRoom,
+            MedicationOrderPriority? priority,
+            string? notes = null)
+        {
+            if (patientId != null)
+            {
+                PatientId = patientId;
+            }
 
-        //public static MedicationOrder Create(
-        //    Guid patientId,
-        //    Guid createdByAccountId,
-        //    int waitingNumber,
-        //    MedicationOrderRoom medicationRoom,
-        //    MedicationOrderPriority priority,
-        //    string? notes = null)
-        //{
-        //    // Domain validation
-        //    createdByAccountId.EnsureNonNull(nameof(createdByAccountId));
+            if (waitingNumber.HasValue)
+            {
+                waitingNumber.Value.EnsureGreaterThan(0, nameof(waitingNumber));
+                WaitingNumber = waitingNumber.Value;
+            }
 
-        //    var order = new MedicationOrder
-        //    {
-        //        PatientId = patientId,
-        //        Status = MedicationOrderStatus.Pending,
-        //        CreatedByAccountId = createdByAccountId,
-        //        CreatedAt = DateTime.UtcNow,
-        //        Notes = notes,
-        //        WaitingNumber = waitingNumber,
-        //        MedicationRoom = medicationRoom,
-        //        Priority = priority
-        //    };
+            if (medicationRoom.HasValue)
+            {
+                MedicationRoom = medicationRoom.Value;
+            }
 
-        //    // Raise domain event
-        //    //order.AddDomainEvent(new MedicationOrderCreatedEvent(order.Id, order.PatientId, order.WaitingNumber));
+            if (priority.HasValue)
+            {
+                Priority = priority.Value;
+            }
 
-        //    return order;
-        //}
+            // Nullable: có thể ghi đè nếu muốn ghi nhận null (nếu muốn bỏ qua null thì thêm điều kiện)
+            Notes = notes;
+        }
 
         public void AddMedicationItem(MedicationOrderItem medicationOrderItem)
         {
@@ -121,19 +126,21 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             Status = MedicationOrderStatus.Dispensed;
         }
 
-        public void MarkAsPaid(Guid patientId)
+        public void MarkAsPaid(Bill bill)
         {
             if (Status != MedicationOrderStatus.Dispensed)
                 throw new ValidationException("Only dispensed orders can be paid.");
 
+            Bill = bill;
             Status = MedicationOrderStatus.Paid;
         }
 
-        public void Cancel(Guid userId, string role)
+        public void Cancel(string reasonCancelled)
         {
             if (Status == MedicationOrderStatus.Dispensed || Status == MedicationOrderStatus.Paid)
                 throw new ValidationException("Cannot cancel dispensed or paid orders.");
 
+            ReasonCancelled = reasonCancelled;
             Status = MedicationOrderStatus.Cancelled;
         }
     }

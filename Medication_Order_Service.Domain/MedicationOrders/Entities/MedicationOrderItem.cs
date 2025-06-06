@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Domain.MedicationOrders.Entities
 {
-    public sealed class MedicationOrderItem : Entity<MedicationOrderItem>
+    public class MedicationOrderItem : Entity<MedicationOrderItem>
     {
         public const int MinItemCount = 1;
         public Guid DrugId { get; }

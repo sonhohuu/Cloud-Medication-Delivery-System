@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Medication_Order_Service.Domain.Drugs.Entities
+namespace Medication_Order_Service.Application.Drugs.Commands.CreateDrugCategory
 {
-    internal class InventoryTransaction
+    internal class CreateDrugCategoryCommandValidator
     {
     }
 }
