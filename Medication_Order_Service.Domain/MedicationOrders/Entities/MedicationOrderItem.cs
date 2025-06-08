@@ -17,32 +17,23 @@ namespace Medication_Order_Service.Domain.MedicationOrders.Entities
         public string Dosage { get; private set; }
         public string Frequency { get; private set; }
         public string Duration { get; private set; }
-
-        private MedicationOrderItem(
-            Guid drugId,
-            int quantity,
-            decimal unitPrice,
-            string dosage,
-            string frequency,
-            string duration)
-        {
-            Quantity.EnsureGreaterThan(MinItemCount, nameof(quantity));
-            UnitPrice.EnsureNonNegative(nameof(unitPrice));
-            Dosage.EnsureNonNull(nameof(dosage));
-            Frequency.EnsureNonNull(nameof(frequency));
-            Duration.EnsureNonNull(nameof(duration));
-
-            DrugId = drugId;
-            Quantity = quantity;
-            UnitPrice = unitPrice;
-            Dosage = dosage;
-            Frequency = frequency;
-            Duration = duration;
-        }
+        private MedicationOrderItem(Id<MedicationOrderItem> id) : base(id) { }
 
         public static MedicationOrderItem Create(Guid drug, int quantity, decimal unitPrice, string dosage, string frequency, string duration)
         {
-            return new MedicationOrderItem(drug, quantity, unitPrice, dosage, frequency, duration);
+            quantity.EnsureGreaterThan(MinItemCount, nameof(quantity));
+            unitPrice.EnsureNonNegative(nameof(unitPrice));
+            dosage.EnsureNonNull(nameof(dosage));
+            frequency.EnsureNonNull(nameof(frequency));
+            duration.EnsureNonNull(nameof(duration));
+            return new MedicationOrderItem(Id<MedicationOrderItem>.New())
+            {
+                Quantity = quantity,
+                UnitPrice = unitPrice,
+                Dosage = dosage,
+                Frequency = frequency,
+                Duration = duration
+            };
         }
 
     }
