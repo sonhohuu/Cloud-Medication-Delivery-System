@@ -1,4 +1,5 @@
-﻿using Medication_Order_Service.Domain.MedicationOrders;
+﻿using Medication_Order_Service.Domain.Common;
+using Medication_Order_Service.Domain.MedicationOrders;
 using System;
 using System.Collections.Generic;
 using System.Linq;

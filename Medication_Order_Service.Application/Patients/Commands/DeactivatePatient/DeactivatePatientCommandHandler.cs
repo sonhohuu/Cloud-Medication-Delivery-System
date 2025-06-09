@@ -26,7 +26,7 @@ namespace Medication_Order_Service.Application.Patients.Commands.DeactivatePatie
             var patient = await _unitOfWork.PatientRepository.GetByIdAsync(request.Id, cancellationToken);
             if (patient == null)
             {
-                throw new Exception($"Patient with ID {request.Id} not found.");
+                return Result.Failure<Unit, IDomainError>(DomainError.NotFound());
             }
 
             patient.Deactivate();

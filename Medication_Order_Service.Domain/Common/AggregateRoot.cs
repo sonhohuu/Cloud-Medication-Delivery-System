@@ -5,12 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Domain.Common
 {
     public abstract class AggregateRoot<TModel> : Entity<TModel>, IAggregateRoot
-        where TModel : IAuditableEntity
+        //where TModel : IAuditableEntity
     {
         private readonly IList<IDomainEvent> _domainEvents = [];
 

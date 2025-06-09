@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Medication_Order_Service.Application.Abstractions;
-using Medication_Order_Service.Application.MedicationOrders.Dtos;
 using Medication_Order_Service.Common;
 using Medication_Order_Service.Domain.Common;
 using Medication_Order_Service.Domain.MedicationOrders;

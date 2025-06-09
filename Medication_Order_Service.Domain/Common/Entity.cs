@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Domain.Common
 {
-    public abstract class Entity<TModel> : IAuditableEntity
+    public abstract class Entity<TModel> /*: IAuditableEntity*/
     {
         public Id<TModel> Id { get; }
-        public DateTimeOffset CreatedAtUtc { get; }
-        public DateTimeOffset LastModifiedAtUtc { get; }
+        //public DateTimeOffset CreatedAtUtc { get; }
+        //public DateTimeOffset LastModifiedAtUtc { get; }
 
         protected Entity(Id<TModel> id)
         {
             Id = id;
-            CreatedAtUtc = DateTimeOffset.UtcNow;
-            LastModifiedAtUtc = DateTimeOffset.UtcNow;
+            //CreatedAtUtc = DateTimeOffset.UtcNow;
+            //LastModifiedAtUtc = DateTimeOffset.UtcNow;
         }
 
         protected Entity() : this(Id<TModel>.New()) { }

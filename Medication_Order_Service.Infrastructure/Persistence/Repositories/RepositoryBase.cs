@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
-using Medication_Order_Service.Domain.MedicationOrders;
-using Medication_Order_Service.Infrastructure.Persistence.Entities;
+using Medication_Order_Service.Application.Patients.Queries.FilterPatient;
+using Medication_Order_Service.Domain.Common;
+using Medication_Order_Service.Domain.Patients;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -34,15 +36,18 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         public async Task AddAsync(TDomain domain, CancellationToken cancellationToken)
         {
             var entity = MapToEntity(domain);
-            await _context.Set<TEntity>().AddAsync(entity, cancellationToken);
+            await GetSet().AddAsync(entity, cancellationToken);
         }
 
         public async Task UpdateAsync(TDomain domain, CancellationToken cancellationToken)
         {
             var entity = MapToEntity(domain);
-            _context.Set<TEntity>().Update(entity);
+            GetSet().Update(entity);
         }
 
-
+        protected virtual DbSet<TEntity> GetSet()
+        {
+            return _context.Set<TEntity>();
+        }
     }
 }
