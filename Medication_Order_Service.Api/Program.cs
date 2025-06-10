@@ -1,7 +1,7 @@
+using Medication_Order_Service.Application;
 using Medication_Order_Service.Application.Repositories;
 using Medication_Order_Service.Infrastructure;
 using Medication_Order_Service.Infrastructure.Persistence.Repositories;
-using Medication_Order_Service.Application;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

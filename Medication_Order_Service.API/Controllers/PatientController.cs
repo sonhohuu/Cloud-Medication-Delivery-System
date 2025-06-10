@@ -32,18 +32,20 @@ namespace Medication_Order_Service.API.Controllers
             return HandleError(result.Error);
         }
 
-        [HttpPut("deactivate")]
-        public async Task<IActionResult> DeactivatePatient([FromBody] DeactivatePatientCommand command)
+        [HttpPut("deactivate/{id}")]
+        public async Task<IActionResult> DeactivatePatient([FromRoute] Guid id)
         {
+            var command = new DeactivatePatientCommand { Id = id };
             var result = await _sender.Send(command);
             if (result.IsSuccess)
                 return Ok(result.Value);
             return HandleError(result.Error);
         }
 
-        [HttpPut("activate")]
-        public async Task<IActionResult> ActivatePatient([FromBody] ActivatePatientCommand command)
+        [HttpPut("activate/{id}")]
+        public async Task<IActionResult> ActivatePatient([FromRoute] Guid id)
         {
+            var command = new ActivatePatientCommand { Id = id };
             var result = await _sender.Send(command);
             if (result.IsSuccess)
                 return Ok(result.Value);

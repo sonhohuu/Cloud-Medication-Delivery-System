@@ -19,11 +19,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         {
         }
 
-        public Task DeleteAsync(Guid id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Patient?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var entity = await _context.Set<PatientEntity>()
@@ -35,19 +30,19 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
 
         public async Task<PagedList<Patient>> FilterPatientAsync(FilterPatientQuery request)
         {
-            if (request.PageNumber <= 0) request.PageNumber = 1;
-            if (request.PageSize <= 0) request.PageSize = 10;
+            request.PageNumber = Math.Max(1, request.PageNumber);
+            request.PageSize = Math.Clamp(request.PageSize == 0 ? 10 : request.PageSize, 1, 100);
 
-            var query = _context.Set<PatientEntity>().AsQueryable();
+            var query = _context.Set<PatientEntity>().AsNoTracking();
 
             if (!string.IsNullOrWhiteSpace(request.FullName))
             {
-                query = query.Where(x => x.FullName.Contains(request.FullName));
+                query = query.Where(x => EF.Functions.Like(x.FullName, $"%{request.FullName}%"));
             }
 
             if (!string.IsNullOrWhiteSpace(request.Email))
             {
-                query = query.Where(x => x.Email.Contains(request.Email));
+                query = query.Where(x => EF.Functions.Like(x.Email, $"%{request.Email}%"));
             }
 
             if (!string.IsNullOrWhiteSpace(request.Phone))
@@ -55,19 +50,20 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
                 query = query.Where(x => x.Phone.Contains(request.Phone));
             }
 
-            // Get total count before pagination
-            var totalCount = await query.CountAsync();
-
-            // Apply pagination and execute query
-            var entities = await query
+            var result = await query
+                .OrderBy(x => x.Id)
+                .Select(x => new
+                {
+                    Data = x,
+                    TotalCount = query.Count()
+                })
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToListAsync();
 
-            // Map entities to domain models
-            var patients = _mapper.Map<List<Patient>>(entities);
+            var totalCount = result.FirstOrDefault()?.TotalCount ?? 0;
+            var patients = result.Select(x => _mapper.Map<Patient>(x.Data)).ToList();
 
-            // Return paged result
             return new PagedList<Patient>(
                 patients,
                 totalCount,

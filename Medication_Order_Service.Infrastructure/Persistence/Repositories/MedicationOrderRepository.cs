@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
+using Medication_Order_Service.Application.MedicationOrders.Queries.FilterMedicationOrder;
+using Medication_Order_Service.Application.Patients.Queries.FilterPatient;
 using Medication_Order_Service.Application.Repositories;
+using Medication_Order_Service.Domain.Common;
 using Medication_Order_Service.Domain.MedicationOrders;
+using Medication_Order_Service.Domain.Patients;
 using Medication_Order_Service.Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,6 +40,43 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
                 .ToListAsync();
 
             return entities.Select(e => _mapper.Map<MedicationOrder>(e));
+        }
+
+        public async Task<PagedList<MedicationOrder>> FilterMedicationOrderAsync(FilterMedicationOrderQuery request)
+        {
+            request.PageNumber = Math.Max(1, request.PageNumber);
+            request.PageSize = Math.Clamp(request.PageSize == 0 ? 10 : request.PageSize, 1, 100);
+
+            var query = _context.Set<MedicationOrderEntity>().AsNoTracking();
+
+            if (request.PatientId.HasValue && request.PatientId.Value != Guid.Empty)
+            {
+                query = query.Where(x => x.PatientId == request.PatientId.Value);
+            }
+
+            var result = await query
+                .Include(x => x.Patient)
+                .Include(x => x.Items)
+                .Include(x => x.Bill)
+                .OrderBy(x => x.Id)
+                .Select(x => new
+                {
+                    Data = x,
+                    TotalCount = query.Count()
+                })
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync();
+
+            var totalCount = result.FirstOrDefault()?.TotalCount ?? 0;
+            var medicationOrders = result.Select(x => _mapper.Map<MedicationOrder>(x.Data)).ToList();
+
+            return new PagedList<MedicationOrder>(
+                medicationOrders,
+                totalCount,
+                request.PageNumber,
+                request.PageSize
+            );
         }
 
     }

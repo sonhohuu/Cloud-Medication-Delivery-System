@@ -14,6 +14,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         private readonly IMapper _mapper;
 
         public IMedicationOrderRepository MedicationOrderRepository { get; private set; }
+        public IMedicationOrderItemRepository MedicationOrderItemRepository { get; private set; }
         public IPatientRepository PatientRepository { get; private set; }
         public IDrugRepository DrugRepository { get; private set; }
         public IDrugCategoryRepository DrugCategoryRepository { get; private set; }
@@ -23,6 +24,7 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
             _context = context;
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             MedicationOrderRepository ??= new MedicationOrderRepository(_context, mapper);
+            MedicationOrderItemRepository ??= new MedicationOrderItemRepository(_context, mapper);
             PatientRepository ??= new PatientRepository(_context, mapper);
             DrugRepository ??= new DrugRepository(_context, mapper);
             DrugCategoryRepository ??= new DrugCategoryRepository(_context, mapper);

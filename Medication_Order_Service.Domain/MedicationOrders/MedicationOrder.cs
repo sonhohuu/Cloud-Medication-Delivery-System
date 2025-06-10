@@ -104,7 +104,7 @@ namespace Medication_Order_Service.Domain.MedicationOrders
             if (Status != MedicationOrderStatus.Pending)
                 throw new ValidationException("Only pending Medication Order can have items added.");
 
-            var item = MedicationOrderItem.Create(medicationOrderItem.DrugId, medicationOrderItem.Quantity, medicationOrderItem.UnitPrice, medicationOrderItem.Duration, medicationOrderItem.Frequency, medicationOrderItem.Duration);
+            var item = MedicationOrderItem.Create(this.Id.Value, medicationOrderItem.DrugId, medicationOrderItem.Quantity, medicationOrderItem.UnitPrice, medicationOrderItem.Duration, medicationOrderItem.Frequency, medicationOrderItem.Duration);
 
             _items.Add(item);
         }

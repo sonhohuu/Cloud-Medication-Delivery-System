@@ -11,14 +11,16 @@ namespace Medication_Order_Service.Domain.MedicationOrders.Entities
     {
         public decimal TotalAmount { get; private set; }
         public DateTime IssuedAt { get; private set; }
-        private Bill(decimal totalAmount)
+        private Bill(Id<Bill> id) : base(id)
         {
-            TotalAmount = totalAmount;
-            IssuedAt = DateTime.UtcNow;
         }
         public static Bill Create(decimal totalAmount)
         {
-            return new Bill(totalAmount);
+            return new Bill(Id<Bill>.New())
+            {
+                TotalAmount = totalAmount,
+                IssuedAt = DateTime.UtcNow
+            };
         }
     }
 }

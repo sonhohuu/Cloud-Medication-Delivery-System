@@ -11,9 +11,9 @@ namespace Medication_Order_Service.Application.Patients.Queries.FilterPatient
 {
     public class FilterPatientQuery : IQuery<PagedList<Patient>>
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-        public string FullName { get; set; }
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
+        public string? FullName { get; set; }
         public bool? IsActive { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }

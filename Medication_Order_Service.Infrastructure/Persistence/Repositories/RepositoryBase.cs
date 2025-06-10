@@ -49,5 +49,10 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         {
             return _context.Set<TEntity>();
         }
+        public async Task<List<TDomain>> GetAllAsync(CancellationToken cancellationToken)
+        {
+            var entities = await GetSet().ToListAsync(cancellationToken);
+            return entities.Select(MapToDomain).ToList();
+        }
     }
 }

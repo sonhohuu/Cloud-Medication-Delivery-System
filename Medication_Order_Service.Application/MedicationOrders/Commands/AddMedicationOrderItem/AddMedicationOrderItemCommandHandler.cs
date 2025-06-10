@@ -35,12 +35,18 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.AddMedi
             foreach (var itemReq in request.Items)
             {
                 var drugActive = await _unitOfWork.DrugRepository.GetByIdAsync(itemReq.DrugId, cancellationToken);
-                if (drugActive.IsActive)
+                if (drugActive is null)
+                {
+                    // Kiểm tra xem thuốc có đang tồn tại không
+                    return Result.Failure<Unit, IDomainError>(DomainError.BadRequest($"Drug with ID {itemReq.DrugId} is not found "));
+                }
+                if (!drugActive.IsActive)
                 {
                     // Kiểm tra xem thuốc có đang hoạt động không
                     return Result.Failure<Unit, IDomainError>(DomainError.BadRequest($"Drug with ID {itemReq.DrugId} is not active "));
                 }
                 var item = MedicationOrderItem.Create(
+                    medicationOrder.Id,
                     itemReq.DrugId,
                     itemReq.Quantity,
                     itemReq.UnitPrice,
@@ -56,12 +62,15 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.AddMedi
             medicationOrder?.VerifyByDoctor(doctorId, request?.Note);
 
             await _unitOfWork.MedicationOrderRepository.UpdateAsync(medicationOrder, cancellationToken);
+            foreach (var item in medicationOrder.Items)
+            {
+                await _unitOfWork.MedicationOrderItemRepository.AddAsync(item, cancellationToken);
+            }
             return Result.Success<Unit, IDomainError>(Unit.Value);
         }
 
         protected override IAggregateRoot? GetAggregateRoot(Result<Unit, IDomainError> result)
         {
-            // Có thể trả về null hoặc order nếu cần raise domain events
             return null;
         }
     }

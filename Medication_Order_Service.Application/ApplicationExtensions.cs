@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentValidation;
+using MediatR;
+using Medication_Order_Service.Application.Behaviours;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,7 +20,14 @@ namespace Medication_Order_Service.Application
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
+
+            // Register all FluentValidation validators from the current assembly
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            // Register MediatR pipeline behavior for validation
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             return services;
         }

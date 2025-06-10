@@ -19,11 +19,9 @@ namespace Medication_Order_Service.Application.Patients.Queries.FilterPatient
     public class FilterPatientQueryHandler : IQueryHandler<FilterPatientQuery, PagedList<Patient>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public FilterPatientQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public FilterPatientQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
         public async Task<Result<PagedList<Patient>, IDomainError>> Handle(FilterPatientQuery request, CancellationToken cancellationToken)
         {

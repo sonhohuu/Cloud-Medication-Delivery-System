@@ -13,5 +13,6 @@ namespace Medication_Order_Service.Application.Repositories
     {
         Task<TDomain?> GetByIdAsync(T id, CancellationToken cancellationToken);
         Task<int> CountAsync(CancellationToken cancellationToken);
+        Task<List<TDomain>> GetAllAsync(CancellationToken cancellationToken);
     }
 }
