@@ -13,7 +13,9 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         [Key]
         public Guid Id { get; set; }
         public Guid InboundId { get; set; }
-        public int Quantity { get; set; }
+        public int ExpectedQuantity { get; set; }
+        public int ActualQuantity { get; set; }
+        public decimal UnitPrice { get; set; }
         public Guid DrugUnitId { get; set; }
         public Guid? LotId { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Medication_Order_Service.Application.Drugs.Commands.CreateDrug;
+using Medication_Order_Service.Application.Drugs.Commands.UpdateDrug;
 using Medication_Order_Service.Application.Drugs.Queries.FilterDrug;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,15 @@ namespace Medication_Order_Service.API.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateDrug([FromBody] CreateDrugCommand command)
+        {
+            var result = await _sender.Send(command);
+            if (result.IsSuccess)
+                return Ok(result.Value);
+            return HandleError(result.Error);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateDrug([FromBody] UpdateDrugCommand command)
         {
             var result = await _sender.Send(command);
             if (result.IsSuccess)

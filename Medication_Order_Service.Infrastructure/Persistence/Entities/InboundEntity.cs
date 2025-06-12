@@ -14,7 +14,8 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         [Key]
         public Guid Id { get; set; }
         public string InboundCode { get; set; } = null!;
-        public string Note { get; set; } = null!;
+        public string? Note { get; set; }
+        public decimal? TotalPrice { get; set; }
         public Guid SupplierId { get; set; }
         public Guid InboundTypeId { get; set; }
         public InboundStatus Status { get; set; }

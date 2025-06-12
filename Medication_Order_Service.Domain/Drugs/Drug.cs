@@ -45,22 +45,24 @@ namespace Medication_Order_Service.Domain.Drugs
             return drug;
         }
 
-        public void Update(string? name, string? description, decimal? price, DrugCategory? drugCategory, DosageForm? dosageForm)
+        public void Update(string? name, string? description, decimal? price, string? sku, DrugCategory? drugCategory, DosageForm? dosageForm)
         {
             if (name != null)
             {
-                name.EnsureNonEmpty(nameof(name));
                 Name = name;
             }
             if (description != null)
             {
-                description.EnsureNonEmpty(nameof(description));
                 Description = description;
             }
             if (price.HasValue)
             {
                 price?.EnsureNonNegative(nameof(price));
                 Price = price.Value;
+            }
+            if (SKU != null)
+            {
+                SKU = sku;
             }
 
             if (drugCategory != null)

@@ -23,7 +23,6 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Entities
         public DosageFormEntity DosageForm { get; set; } = null!;
         public DrugCategoryEntity DrugCategory { get; set; } = null!;
         public ICollection<LotEntity> Lots { get; set; } = new List<LotEntity>();
-        public ICollection<DrugUnitEntity> DrugUnits { get; set; } = new List<DrugUnitEntity>();
         public ICollection<MedicationOrderItemEntity> MedicationOrderItems { get; set; } = new List<MedicationOrderItemEntity>();
     }
 }
