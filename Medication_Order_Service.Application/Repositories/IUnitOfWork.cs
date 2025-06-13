@@ -13,6 +13,8 @@ namespace Medication_Order_Service.Application.Repositories
         Task CommitTransactionAsync();
         Task RollbackTransactionAsync();
 
+        IAccountRepository AccountRepository { get; }
+        IRoleRepository RoleRepository { get; }
         IMedicationOrderRepository MedicationOrderRepository { get; }
         IMedicationOrderItemRepository MedicationOrderItemRepository { get; }
         IPatientRepository PatientRepository { get; }

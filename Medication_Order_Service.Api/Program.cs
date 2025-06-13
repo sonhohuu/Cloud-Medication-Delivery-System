@@ -1,3 +1,4 @@
+using Medication_Order_Service.API;
 using Medication_Order_Service.Application;
 using Medication_Order_Service.Application.Repositories;
 using Medication_Order_Service.Infrastructure;
@@ -16,18 +17,27 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSignalR();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddHttpContextAccessor();
+
+ServiceRegister.RegisterServices(builder.Services, builder.Configuration, builder.Environment);
 
 var app = builder.Build();
+
+app.UseRouting();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowAll");
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

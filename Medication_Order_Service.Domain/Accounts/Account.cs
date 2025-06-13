@@ -1,5 +1,6 @@
 ﻿using Medication_Order_Service.Domain.Accounts.Entities;
 using Medication_Order_Service.Domain.Common;
+using Medication_Order_Service.Domain.Common.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Medication_Order_Service.Domain.Accounts
         public string PasswordHash { get; private set; }
         public string Email { get; private set; }
         public bool Status { get; private set; }
-        public Role Role { get; private set; }
+        public Roles Roles { get; private set; }
         public string Username { get; private set; }
         public bool EmailConfirmed { get; private set; }
         public string PhoneNumber { get; private set; }
@@ -25,19 +26,24 @@ namespace Medication_Order_Service.Domain.Accounts
         {
         }
 
-        public static Account Create(string fullName, string passwordHash, string email, Role role, string username, string phoneNumber)
+        public static Account Create(string fullName, string email, Roles role, string username, string phoneNumber)
         {
             return new Account(Id<Account>.New())
             {
                 FullName = fullName,
-                PasswordHash = passwordHash,
                 Email = email,
-                Role = role,
+                Roles = role,
                 Username = username,
                 PhoneNumber = phoneNumber,
                 Status = true,
                 EmailConfirmed = false
             };
+        }
+
+        public void HashPassword(string passwordHash)
+        {
+            passwordHash.EnsureNonEmpty(nameof(passwordHash));
+            PasswordHash = passwordHash;
         }
 
         public void Activate()

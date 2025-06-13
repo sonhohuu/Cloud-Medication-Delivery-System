@@ -13,6 +13,8 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         protected readonly MedicationOrderServiceDbContext _context;
         private readonly IMapper _mapper;
 
+        public IAccountRepository AccountRepository { get; private set; }
+        public IRoleRepository RoleRepository { get; private set; }
         public IMedicationOrderRepository MedicationOrderRepository { get; private set; }
         public IMedicationOrderItemRepository MedicationOrderItemRepository { get; private set; }
         public IPatientRepository PatientRepository { get; private set; }
@@ -23,6 +25,8 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Repositories
         {
             _context = context;
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            AccountRepository ??= new AccountRepository(_context, mapper);
+            RoleRepository ??= new RoleRepository(_context, mapper);
             MedicationOrderRepository ??= new MedicationOrderRepository(_context, mapper);
             MedicationOrderItemRepository ??= new MedicationOrderItemRepository(_context, mapper);
             PatientRepository ??= new PatientRepository(_context, mapper);

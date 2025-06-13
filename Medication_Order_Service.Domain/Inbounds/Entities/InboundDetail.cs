@@ -10,7 +10,6 @@ namespace Medication_Order_Service.Domain.Inbounds.Entities
 {
     public class InboundDetail : Entity<InboundDetail>
     {
-        public Guid InboundId { get; private set; }
         public Guid LotId { get; private set; }
         public Guid DrugUnitId { get; private set; }
         public int ExpectedQuantity { get; set; }
@@ -21,11 +20,10 @@ namespace Medication_Order_Service.Domain.Inbounds.Entities
         {
         }
 
-        public static InboundDetail Create(Guid inboundId, Guid drugUnitId, int expectedQuantity, decimal unitPrice)
+        public static InboundDetail Create(Guid drugUnitId, int expectedQuantity, decimal unitPrice)
         {
             return new InboundDetail(Id<InboundDetail>.New())
             {
-                InboundId = inboundId,
                 DrugUnitId = drugUnitId,
                 ExpectedQuantity = expectedQuantity,
                 ActualQuantity = expectedQuantity,

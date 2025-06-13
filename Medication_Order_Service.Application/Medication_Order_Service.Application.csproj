@@ -12,8 +12,8 @@
 
   <ItemGroup>
     <Folder Include="Accounts\Commands\" />
+    <Folder Include="Events\Handlers\" />
     <Folder Include="MappingProfiles\" />
-    <Folder Include="Events\" />
   </ItemGroup>
 
   <ItemGroup>

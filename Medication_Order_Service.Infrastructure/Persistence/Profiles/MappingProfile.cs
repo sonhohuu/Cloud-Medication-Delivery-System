@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Medication_Order_Service.Domain.Accounts;
+using Medication_Order_Service.Domain.Accounts.Entities;
 using Medication_Order_Service.Domain.Common;
 using Medication_Order_Service.Domain.Drugs;
 using Medication_Order_Service.Domain.Drugs.Entities;
@@ -68,6 +70,19 @@ namespace Medication_Order_Service.Infrastructure.Persistence.Profiles
             CreateMap<DrugCategory, DrugCategoryEntity>();
 
             CreateMap<DrugCategoryEntity, DrugCategory>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+            CreateMap<Account, AccountEntity>()
+                .ForMember(dest => dest.Role, opt => opt.Ignore())
+                .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => src.Roles.Id));
+
+            CreateMap<AccountEntity, Account>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Role));
+
+            CreateMap<Roles, Role>();
+
+            CreateMap<Role, Roles>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }

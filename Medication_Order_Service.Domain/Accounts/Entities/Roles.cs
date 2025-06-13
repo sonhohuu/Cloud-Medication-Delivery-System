@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Medication_Order_Service.Domain.Accounts.Entities
 {
-    public class Role : Entity<Role>
+    public class Roles : Entity<Roles>
     {
         public string Name { get; private set; }
-        private Role(Id<Role> id) : base(id) { }
-        public static Role Create(string name, string description)
+        private Roles(Id<Roles> id) : base(id) { }
+        public static Roles Create(string name, string description)
         {
-            return new Role(Id<Role>.New())
+            return new Roles(Id<Roles>.New())
             {
                 Name = name
             };

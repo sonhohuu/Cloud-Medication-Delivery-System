@@ -1,6 +1,9 @@
 ﻿using FluentValidation;
 using MediatR;
 using Medication_Order_Service.Application.Behaviours;
+using Medication_Order_Service.Application.Services;
+using Medication_Order_Service.Domain.Accounts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -25,6 +28,10 @@ namespace Medication_Order_Service.Application
 
             // Register all FluentValidation validators from the current assembly
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddScoped<IPasswordWrapper, PasswordWrapper>();
+            services.AddScoped<IPasswordHasher<Account>, PasswordHasher<Account>>();
+            services.AddScoped<ITokenHandlerService, TokenHandlerService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             // Register MediatR pipeline behavior for validation
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));

@@ -23,11 +23,11 @@ namespace Medication_Order_Service.Application.Services
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
-                new Claim(ClaimTypes.Role, account.Role.Name),
+                new Claim(ClaimTypes.NameIdentifier, account.Id.Value.ToString()),
+                new Claim(ClaimTypes.Role, account.Roles.Name),
                 new Claim(ClaimTypes.Name, account.Username),
                 new Claim(ClaimTypes.Email, account.Email),
-                new Claim("ConcurrencyStamp", account.ConcurrencyStamp!)
+                //new Claim("ConcurrencyStamp", account.ConcurrencyStamp!)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));

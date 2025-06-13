@@ -3,6 +3,7 @@ using CSharpFunctionalExtensions;
 using MediatR;
 using Medication_Order_Service.Application.Abstractions;
 using Medication_Order_Service.Application.Repositories;
+using Medication_Order_Service.Application.Services;
 using Medication_Order_Service.Domain.Common;
 using Medication_Order_Service.Domain.Common.Errors;
 using Medication_Order_Service.Domain.MedicationOrders.Entities;
@@ -17,11 +18,12 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.AddMedi
     public class AddMedicationOrderItemCommandHandler : CommandHandlerBase<AddMedicationOrderItemCommand, Unit>
     {
         private readonly IMapper _mapper;
-
-        public AddMedicationOrderItemCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly ICurrentUserService _currentUserService;
+        public AddMedicationOrderItemCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ICurrentUserService currentUserService)
             : base(unitOfWork)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _currentUserService = currentUserService ?? throw new ArgumentNullException(nameof(currentUserService));
         }
 
         protected override async Task<Result<Unit, IDomainError>> ExecuteAsync(
@@ -58,8 +60,8 @@ namespace Medication_Order_Service.Application.MedicationOrders.Commands.AddMedi
                 medicationOrder?.AddMedicationItem(item);
             }
 
-            var doctorId = Guid.Parse("550E8400-E29B-41D4-A716-446655440000");
-            medicationOrder?.VerifyByDoctor(doctorId, request?.Note);
+            var userId = _currentUserService.UserId.Value;
+            medicationOrder?.VerifyByDoctor(userId, request?.Note);
 
             await _unitOfWork.MedicationOrderRepository.UpdateAsync(medicationOrder, cancellationToken);
             foreach (var item in medicationOrder.Items)
